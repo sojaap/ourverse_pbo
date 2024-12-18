@@ -17,103 +17,83 @@ import javax.swing.JOptionPane;
 import java.awt.CardLayout;
 
 public class Ourversetest implements ActionListener {
-    // Declaration of instance variables
     private JButton buttonstaff;
     private JButton buttonbuyer;
-    private JPanel cardPanel; // Declare the cardPanel
+    private JPanel cardPanel;
+    private JTextField nameField;
+    private JTextField addressField;
+    private JTextField merchListField;
+    private JTextField paymentMethodField;
     private JTextField usernameField;
     private JPasswordField passwordField;
 
     public static void main(String[] args) {
-        // Create an instance of the class and run the GUI
         Ourversetest app = new Ourversetest();
-        app.createAndShowGUI(); // Run the GUI
+        app.createAndShowGUI();
     }
 
-    // Method to create and show the GUI
     private void createAndShowGUI() {
-        // Original image for the icon
-        ImageIcon originalImage = new ImageIcon(
-                "D:\\XN_DATA\\Collage\\Ourverse_PBO_JavaSwing\\Ourverse-Project\\OurLogo.png");
-
-        // Resize the image
+        ImageIcon originalImage = new ImageIcon("Ourverse_PBO_JavaSwing\\Ourverse-Project\\OurLogo.png");
         Image resizedImage = originalImage.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
         ImageIcon resizedImageIcon = new ImageIcon(resizedImage);
 
-        // Label with the resized image
         JLabel imageLabel = new JLabel();
         imageLabel.setIcon(resizedImageIcon);
-        imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the image horizontally
+        imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-        // Text label
         JLabel textLabel = new JLabel("Welcome To Ourverse");
         textLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-        textLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the text horizontally
+        textLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-        // Button 1: Staff Session
         buttonstaff = new JButton("Masuk Sebagai Staff");
         buttonstaff.setFont(new Font("SansSerif", Font.PLAIN, 14));
         buttonstaff.setFocusable(false);
-        buttonstaff.setAlignmentX(JButton.CENTER_ALIGNMENT); // Center the button horizontally
-        buttonstaff.addActionListener(this); // Add action listener
+        buttonstaff.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        buttonstaff.addActionListener(this);
 
-        // Button 2: Buyer Session
         buttonbuyer = new JButton("Masuk Sebagai Pembeli");
         buttonbuyer.setFont(new Font("SansSerif", Font.PLAIN, 14));
         buttonbuyer.setFocusable(false);
-        buttonbuyer.setAlignmentX(JButton.CENTER_ALIGNMENT); // Center the button horizontally
-        buttonbuyer.addActionListener(this); // Add action listener
+        buttonbuyer.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        buttonbuyer.addActionListener(this);
 
-        // Create the card panel with CardLayout
         cardPanel = new JPanel(new CardLayout());
 
-        // Create the main menu panel
         JPanel mainMenuPanel = new JPanel();
         mainMenuPanel.setLayout(new BoxLayout(mainMenuPanel, BoxLayout.Y_AXIS));
-        mainMenuPanel.add(Box.createVerticalGlue()); // Add flexibility for the top
-        mainMenuPanel.add(imageLabel); // Add image
-        mainMenuPanel.add(Box.createVerticalStrut(10)); // Add spacing between elements
-        mainMenuPanel.add(textLabel); // Add text
-        mainMenuPanel.add(Box.createVerticalStrut(20)); // Add spacing between elements
-        mainMenuPanel.add(buttonstaff); // Add staff button
-        mainMenuPanel.add(Box.createVerticalStrut(10)); // Add spacing between elements
-        mainMenuPanel.add(buttonbuyer); // Add buyer button
-        mainMenuPanel.add(Box.createVerticalGlue()); // Add flexibility for the bottom
+        mainMenuPanel.add(Box.createVerticalGlue());
+        mainMenuPanel.add(imageLabel);
+        mainMenuPanel.add(Box.createVerticalStrut(10));
+        mainMenuPanel.add(textLabel);
+        mainMenuPanel.add(Box.createVerticalStrut(20));
+        mainMenuPanel.add(buttonstaff);
+        mainMenuPanel.add(Box.createVerticalStrut(10));
+        mainMenuPanel.add(buttonbuyer);
+        mainMenuPanel.add(Box.createVerticalGlue());
 
-        // Add the main menu panel to the card panel
         cardPanel.add(mainMenuPanel, "Main Menu");
-
-        // Create and add the Staff Session and Buyer Session panels
         cardPanel.add(createStaffSessionPanel(), "Staff Session");
-        // cardPanel.add(createBuyerSessionPanel(), "Buyer Session");
+        cardPanel.add(createBuyerSessionPanel(), "Buyer Session");
+        cardPanel.add(createOrderFormPanel(), "Order Form");
 
-        // JFrame setup
         JFrame frame = new JFrame("Ourverse");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
-        frame.setSize(400, 400); // Set the frame size
-        frame.setIconImage(originalImage.getImage()); // Set the frame icon
-        frame.add(cardPanel); // Add the card panel to the frame
+        frame.setSize(400, 400);
+        frame.setIconImage(originalImage.getImage());
+        frame.add(cardPanel);
         frame.setVisible(true);
     }
 
-    // Method to handle button actions
     @Override
     public void actionPerformed(ActionEvent e) {
         CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-
         if (e.getSource() == buttonstaff) {
-            // Switch to the Staff Session panel
-            System.out.println("Enter Staff Session");
             cardLayout.show(cardPanel, "Staff Session");
         } else if (e.getSource() == buttonbuyer) {
-            // Switch to the Buyer Session panel
-            System.out.println("Enter Buyer Session");
             cardLayout.show(cardPanel, "Buyer Session");
         }
     }
-
-    // Method to create the Staff Session panel with login form
     private JPanel createStaffSessionPanel() {
         JPanel staffPanel = new JPanel();
         staffPanel.setLayout(new BoxLayout(staffPanel, BoxLayout.Y_AXIS));
@@ -175,4 +155,121 @@ public class Ourversetest implements ActionListener {
 
         return staffPanel;
     }
+
+    private JPanel createBuyerSessionPanel() {
+        JPanel buyerPanel = new JPanel();
+        buyerPanel.setLayout(new BoxLayout(buyerPanel, BoxLayout.Y_AXIS));
+        buyerPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
+
+        JLabel titleLabel = new JLabel("Buyer Session");
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        JButton viewMerchButton = new JButton("Melihat Daftar Merch");
+        viewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        viewMerchButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Daftar Merch Ditampilkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        JButton orderMerchButton = new JButton("Memesan Merch");
+        orderMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        orderMerchButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Order Form");
+        });
+
+        JButton viewOrdersButton = new JButton("Melihat Daftar Pemesanan");
+        viewOrdersButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        viewOrdersButton.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "Daftar Pemesanan Ditampilkan", "Informasi", JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        JButton backButton = new JButton("Kembali ke Menu Utama");
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Main Menu");
+        });
+
+        buyerPanel.add(Box.createVerticalGlue());
+        buyerPanel.add(titleLabel);
+        buyerPanel.add(Box.createVerticalStrut(20));
+        buyerPanel.add(viewMerchButton);
+        buyerPanel.add(Box.createVerticalStrut(10));
+        buyerPanel.add(orderMerchButton);
+        buyerPanel.add(Box.createVerticalStrut(10));
+        buyerPanel.add(viewOrdersButton);
+        buyerPanel.add(Box.createVerticalStrut(20));
+        buyerPanel.add(backButton);
+        buyerPanel.add(Box.createVerticalGlue());
+
+        return buyerPanel;
+    }
+
+    private JPanel createOrderFormPanel() {
+        JPanel orderFormPanel = new JPanel();
+        orderFormPanel.setLayout(new BoxLayout(orderFormPanel, BoxLayout.Y_AXIS));
+        orderFormPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
+
+        JLabel formLabel = new JLabel("Form Pemesanan Merch");
+        formLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        formLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        nameField = new JTextField();
+        addressField = new JTextField();
+        merchListField = new JTextField();
+        paymentMethodField = new JTextField();
+
+        addLabeledField(orderFormPanel, "Nama Pemesan:", nameField);
+        addLabeledField(orderFormPanel, "Alamat:", addressField);
+        addLabeledField(orderFormPanel, "Daftar Merch:", merchListField);
+        addLabeledField(orderFormPanel, "Metode Pembayaran:", paymentMethodField);
+
+        JButton submitButton = new JButton("Submit");
+        submitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        submitButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String address = addressField.getText();
+            String merchList = merchListField.getText();
+            String paymentMethod = paymentMethodField.getText();
+
+            JOptionPane.showMessageDialog(null,
+                "Pesanan Berhasil:\n" +
+                "Nama: " + name + "\n" +
+                "Alamat: " + address + "\n" +
+                "Merch: " + merchList + "\n" +
+                "Pembayaran: " + paymentMethod,
+                "Konfirmasi Pesanan",
+                JOptionPane.INFORMATION_MESSAGE);
+        });
+
+        JButton backButton = new JButton("Kembali ke Buyer Session");
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Buyer Session");
+        });
+
+        orderFormPanel.add(Box.createVerticalStrut(20));
+        orderFormPanel.add(submitButton);
+        orderFormPanel.add(Box.createVerticalStrut(10));
+        orderFormPanel.add(backButton);
+        orderFormPanel.add(Box.createVerticalGlue());
+
+        return orderFormPanel;
+    }
+
+    private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new java.awt.Dimension(120, 20));
+        textField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
+        fieldPanel.add(label);
+        fieldPanel.add(Box.createHorizontalStrut(10));
+        fieldPanel.add(textField);
+        panel.add(fieldPanel);
+        panel.add(Box.createVerticalStrut(10));
+    }
+
 }
