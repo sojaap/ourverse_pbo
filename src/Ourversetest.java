@@ -3,19 +3,17 @@ import java.awt.Image;
 import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyAdapter;
+import javax.swing.text.DocumentFilter.FilterBypass;
+import javax.swing.text.JTextComponent;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JOptionPane;
+
 import java.awt.CardLayout;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 public class Ourversetest implements ActionListener {
     private JButton buttonstaff;
@@ -27,6 +25,7 @@ public class Ourversetest implements ActionListener {
     private JTextField paymentMethodField;
     private JTextField usernameField;
     private JPasswordField passwordField;
+    private JTextArea orderHistoryTextArea;
 
     public static void main(String[] args) {
         Ourversetest app = new Ourversetest();
@@ -77,6 +76,7 @@ public class Ourversetest implements ActionListener {
         cardPanel.add(createBuyerSessionPanel(), "Buyer Session");
         cardPanel.add(createOrderFormPanel(), "Order Form");
         cardPanel.add(createStaffMenuSessionPanel(), "Staff Menu");
+        cardPanel.add(createOrderHistoryPanel(), "Order History");
 
         JFrame frame = new JFrame("Ourverse");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,6 +115,7 @@ public class Ourversetest implements ActionListener {
         usernameField = new JTextField();
         usernameField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30)); // Allow full width resizing
         usernamePanel.add(usernameLabel);
+        setCharacterLimit(usernameField, 20);
         usernamePanel.add(Box.createHorizontalStrut(10)); // Add space between label and field
         usernamePanel.add(usernameField);
 
@@ -125,6 +126,7 @@ public class Ourversetest implements ActionListener {
         passwordField = new JPasswordField();
         passwordField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30)); // Allow full width resizing
         passwordPanel.add(passwordLabel);
+        setCharacterLimit(passwordField, 14);
         passwordPanel.add(Box.createHorizontalStrut(10)); // Add space between label and field
         passwordPanel.add(passwordField);
 
@@ -204,8 +206,8 @@ public class Ourversetest implements ActionListener {
         JButton StaffOrderMerchViewButton = new JButton("Melihat Daftar Pesanan Merch");
         StaffOrderMerchViewButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffOrderMerchViewButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Melihat Daftar Pesanan", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Order History");
         });
 
         JButton backButton = new JButton("Kembali ke Menu Utama");
@@ -258,8 +260,9 @@ public class Ourversetest implements ActionListener {
         JButton viewOrdersButton = new JButton("Melihat Daftar Pemesanan");
         viewOrdersButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         viewOrdersButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Daftar Pemesanan Ditampilkan", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Order History");
+
         });
 
         JButton backButton = new JButton("Kembali ke Menu Utama");
@@ -284,7 +287,7 @@ public class Ourversetest implements ActionListener {
         return buyerPanel;
     }
 
-    private JPanel createOrderFormPanel() {
+    public JPanel createOrderFormPanel() {
         JPanel orderFormPanel = new JPanel();
         orderFormPanel.setLayout(new BoxLayout(orderFormPanel, BoxLayout.Y_AXIS));
         orderFormPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
@@ -311,7 +314,14 @@ public class Ourversetest implements ActionListener {
             String merchList = merchListField.getText();
             String paymentMethod = paymentMethodField.getText();
 
-            JOptionPane.showMessageDialog(null,
+            // Menampilkan riwayat pesanan
+            orderHistoryTextArea.append("Pesanan Baru:\n" +
+                    "Nama: " + name + "\n" +
+                    "Alamat: " + address + "\n" +
+                    "Merch: " + merchList + "\n" +
+                    "Pembayaran: " + paymentMethod + "\n\n");
+
+                    JOptionPane.showMessageDialog(null,
                     "Pesanan Berhasil:\n" +
                             "Nama: " + name + "\n" +
                             "Alamat: " + address + "\n" +
@@ -320,6 +330,7 @@ public class Ourversetest implements ActionListener {
                     "Konfirmasi Pesanan",
                     JOptionPane.INFORMATION_MESSAGE);
         });
+
 
         JButton backButton = new JButton("Kembali ke Buyer Session");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -337,6 +348,39 @@ public class Ourversetest implements ActionListener {
         return orderFormPanel;
     }
 
+    public JPanel createOrderHistoryPanel() {
+        JPanel orderHistoryPanel = new JPanel();
+        orderHistoryPanel.setLayout(new BoxLayout(orderHistoryPanel, BoxLayout.Y_AXIS));
+        orderHistoryPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
+
+        JLabel orderHistoryLabel = new JLabel("Riwayat Pemesanan");
+        orderHistoryLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        orderHistoryLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        // TextArea untuk menampilkan riwayat pemesanan
+        orderHistoryTextArea = new JTextArea(10, 30);
+        orderHistoryTextArea.setEditable(false);
+        JScrollPane scrollPane = new JScrollPane(orderHistoryTextArea);
+        scrollPane.setAlignmentX(JScrollPane.CENTER_ALIGNMENT);
+
+        JButton backButton = new JButton("Kembali ke Buyer Session");
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Buyer Session");
+        });
+
+        orderHistoryPanel.add(Box.createVerticalGlue());
+        orderHistoryPanel.add(orderHistoryLabel);
+        orderHistoryPanel.add(Box.createVerticalStrut(20));
+        orderHistoryPanel.add(scrollPane);
+        orderHistoryPanel.add(Box.createVerticalStrut(10));
+        orderHistoryPanel.add(backButton);
+        orderHistoryPanel.add(Box.createVerticalGlue());
+
+        return orderHistoryPanel;
+    }
+
     private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
         JPanel fieldPanel = new JPanel();
         fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
@@ -350,4 +394,29 @@ public class Ourversetest implements ActionListener {
         panel.add(Box.createVerticalStrut(10));
     }
 
+    // untuk set character limit untuk username (masing-masing 20)
+    public static void setCharacterLimit(JTextField textField, int limit) {
+        textField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Jika panjang teks sudah mencapai limit, tombol tidak akan berfungsi
+                if (textField.getText().length() >= limit) {
+                    e.consume(); // Menghentikan input lebih lanjut
+                }
+            }
+        });
+    }
+
+    // Overload untuk password karena menggunakan char[]
+    public static void setCharacterLimit(JPasswordField passwordField, int limit) {
+        passwordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // Jika panjang teks sudah mencapai limit, tombol tidak akan berfungsi
+                if (passwordField.getPassword().length >= limit) {
+                    e.consume(); // Menghentikan input lebih lanjut
+                }
+            }
+        });
+    }
 }
