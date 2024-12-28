@@ -3,23 +3,31 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class koneksi {
-    // set konstanta untuk pengaturan driver,db,user dan password
-    private final String JDBC_URL = "com.mysql.cj.jdbc.Driver";
-    private final String DB_NAME = "ourverse";
-    private final String DB_URL = "jdbc:mysql://localhost/" + DB_NAME;
-    private final String USER = "root";
-    private final String PASS = "";
-    // inisialisasi objek conn
-    Connection conn;
+    private static final String URL = "jdbc:mysql://localhost:3306/ourverse"; // Ganti dengan URL database Anda
+    private static final String USERNAME = "root"; // Ganti dengan username database Anda
+    private static final String PASSWORD = "password"; // Ganti dengan password database Anda
 
-    public Connection connect() throws ClassNotFoundException,
-            SQLException {
-        // isi driver sesuai URL yang di definisikan
-        Class.forName(JDBC_URL);
-        // isi objek conn untuk mendapatkan koneksi dengan database
-        conn = DriverManager.getConnection(DB_URL, USER, PASS);
+    static {
+        try {
+            // Muat driver JDBC
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Driver JDBC tidak ditemukan: " + e.getMessage());
+        }
+    }
 
-        System.out.println("koneksi sukses");
-        return conn;
+    // Metode connect untuk mendapatkan koneksi
+    public Connection connect() throws SQLException {
+        return DriverManager.getConnection(URL, USERNAME, PASSWORD);
+    }
+
+    // Metode main untuk pengujian koneksi
+    public static void main(String[] args) {
+        koneksi dbKoneksi = new koneksi();
+        try (Connection conn = dbKoneksi.connect()) {
+            System.out.println("Koneksi berhasil!");
+        } catch (SQLException e) {
+            System.out.println("Koneksi gagal: " + e.getMessage());
+        }
     }
 }
