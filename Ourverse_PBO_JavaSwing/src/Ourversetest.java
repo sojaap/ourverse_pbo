@@ -80,6 +80,7 @@ public class Ourversetest implements ActionListener {
         cardPanel.add(createStaffMenuSessionPanel(), "Staff Menu");
         cardPanel.add(createOrderHistoryPanel(), "Order History");
         cardPanel.add(StaffAddStockMerchPanel(), "Staff AddStock");
+        cardPanel.add(createMerchList(), "Merch List");
 
         JFrame frame = new JFrame("Ourverse");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -202,8 +203,8 @@ public class Ourversetest implements ActionListener {
         JButton StaffViewMerchButton = new JButton("Melihat Daftar List Merch");
         StaffViewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffViewMerchButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Melihat Daftar Merch", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Merch List");
         });
 
         JButton StaffOrderMerchViewButton = new JButton("Melihat Daftar Pesanan Merch");
@@ -363,8 +364,8 @@ public class Ourversetest implements ActionListener {
         JButton viewMerchButton = new JButton("Melihat Daftar Merch");
         viewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         viewMerchButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Daftar Merch Ditampilkan", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Merch List");
         });
 
         JButton orderMerchButton = new JButton("Memesan Merch");
@@ -402,6 +403,108 @@ public class Ourversetest implements ActionListener {
         buyerPanel.add(Box.createVerticalGlue());
 
         return buyerPanel;
+    }
+
+    public JPanel createMerchList() {
+        JPanel merchListJPanel = new JPanel();
+        merchListJPanel.setLayout(new BoxLayout(merchListJPanel, BoxLayout.Y_AXIS));
+        merchListJPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
+
+        JLabel merchListLabel = new JLabel("Daftar Merch");
+        merchListLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        merchListLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+
+        String[] categories = {"Doll", "Album", "Photocard"};
+        JComboBox<String> dropdown = new JComboBox<>(categories);
+
+        JButton backButton = new JButton("Kembali ke Buyer Session");
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Buyer Session");
+        });
+
+        String[] kolom = {"Nama", "Harga"};
+        String[][] doll = {
+            {"Doll 1", "Rp 60,000"},
+            {"Doll 2", "Rp 200,000"},
+            {"Doll 3", "Rp 150,500"},
+            {"Doll 4", "Rp 70,000"},
+            {"Doll 5", "Rp 100,000"}
+        };
+        
+        String[][] album = {
+            {"Album 1", "Rp 60,000"},
+            {"Album 2", "Rp 200,000"},
+            {"Album 3", "Rp 150,500"},
+            {"Album 4", "Rp 70,000"},
+            {"Album 5", "Rp 100,000"}
+        };
+        
+        String[][] Photocard = {
+            {"Photocard 1", "Rp 60,000"},
+            {"Photocard 2", "Rp 200,000"},
+            {"Photocard 3", "Rp 150,500"},
+            {"Photocard 4", "Rp 70,000"},
+            {"Photocard 5", "Rp 100,000"}
+        };
+
+        // class untuk modifikasi agar tabel tidak bisa diedit pembeli
+        class NonEditableTableModel extends DefaultTableModel {
+            public NonEditableTableModel(Object[][] data, Object[] kolom) {
+                super(data, kolom); // memanggil dari induk inisial data dan kolom yg ada
+            }
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Tabel tidak bisa diedit
+            }
+        }
+
+        // tampilan table
+        JTable table = new JTable();
+        JScrollPane tableScrollPane = new JScrollPane(table);
+
+        // buat interaktif sama dropdown nya
+        ActionListener dropdownActionListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selectedCategory = (String) dropdown.getSelectedItem();
+                if (selectedCategory != null) {
+                    switch (selectedCategory) {
+                        case "Doll":
+                            table.setModel(new NonEditableTableModel(doll, kolom));
+                            break;
+                        case "Album":
+                            table.setModel(new NonEditableTableModel(album, kolom));
+                            break;
+                        case "Photocard":
+                            table.setModel(new NonEditableTableModel(Photocard, kolom));
+                            break;
+                    }
+                }
+            }
+        };
+        
+        // tambah actionlistener ke dropdown
+        dropdown.addActionListener(dropdownActionListener);
+
+
+        // masukin ke panel
+        merchListJPanel.add(Box.createVerticalGlue());
+        merchListJPanel.add(merchListLabel);
+        merchListJPanel.add(Box.createVerticalStrut(20));
+        merchListJPanel.add(dropdown);
+        merchListJPanel.add(tableScrollPane);
+        merchListJPanel.add(Box.createVerticalStrut(10));
+        merchListJPanel.add(backButton);
+        merchListJPanel.add(Box.createVerticalGlue());
+        
+        // table default
+        table.setModel(new NonEditableTableModel(doll, kolom));
+
+        return merchListJPanel;
+    
     }
 
     public JPanel createOrderFormPanel() {
