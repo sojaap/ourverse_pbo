@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class Ourversetest implements ActionListener {
     private JButton buttonstaff;
@@ -26,6 +27,11 @@ public class Ourversetest implements ActionListener {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JTextArea orderHistoryTextArea;
+    private ArrayList<Merchandise> merchandiseList = new ArrayList<>();
+
+    // Tambahkan deklarasi untuk priceField dan stockField di tingkat kelas
+    private JTextField priceField;
+    private JTextField stockField;
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
@@ -43,20 +49,24 @@ public class Ourversetest implements ActionListener {
         imageLabel.setIcon(resizedImageIcon);
         imageLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-        JLabel textLabel = new JLabel("Welcome To Ourverse");
+        JLabel textLabel = new JLabel("Selamat Datang di Ourverse");
         textLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         textLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
-        buttonstaff = new JButton("Masuk Sebagai Staff");
+        buttonstaff = new JButton("Masuk Sebagai Pegawai");
         buttonstaff.setFont(new Font("SansSerif", Font.PLAIN, 14));
         buttonstaff.setFocusable(false);
         buttonstaff.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        buttonstaff.setBackground(Color.BLUE); // Mengatur warna latar belakang tombol staff
+        buttonstaff.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
         buttonstaff.addActionListener(this);
 
         buttonbuyer = new JButton("Masuk Sebagai Pembeli");
         buttonbuyer.setFont(new Font("SansSerif", Font.PLAIN, 14));
         buttonbuyer.setFocusable(false);
         buttonbuyer.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        buttonbuyer.setBackground(Color.ORANGE); // Mengatur warna latar belakang tombol buyer
+        buttonbuyer.setForeground(Color.BLACK); // Mengatur warna teks tombol buyer menjadi hitam
         buttonbuyer.addActionListener(this);
 
         cardPanel = new JPanel(new CardLayout());
@@ -100,20 +110,34 @@ public class Ourversetest implements ActionListener {
         }
     }
 
+    class Merchandise {
+        String code;
+        String name;
+        String price;
+        String stock;
+
+        Merchandise(String code, String name, String price, String stock) {
+            this.code = code;
+            this.name = name;
+            this.price = price;
+            this.stock = stock;
+        }
+    }
+
     private JPanel createStaffSessionPanel() {
         JPanel staffPanel = new JPanel();
         staffPanel.setLayout(new BoxLayout(staffPanel, BoxLayout.Y_AXIS));
         staffPanel.setBorder(new EmptyBorder(20, 30, 20, 30)); // Top, Left, Bottom, Right margins
 
         // Label for Login
-        JLabel textLabel = new JLabel("Masuk sebagai Staff");
+        JLabel textLabel = new JLabel("Masuk sebagai Pegawai");
         textLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         textLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT); // Center the text horizontally
 
         // Username and Password labels and fields
         JPanel usernamePanel = new JPanel();
         usernamePanel.setLayout(new BoxLayout(usernamePanel, BoxLayout.X_AXIS)); // Horizontal layout
-        JLabel usernameLabel = new JLabel("Username:");
+        JLabel usernameLabel = new JLabel("Nama Pengguna:");
         usernameLabel.setPreferredSize(new java.awt.Dimension(100, 20)); // Fixed size for the label
         usernameField = new JTextField();
         usernameField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30)); // Allow full width resizing
@@ -124,7 +148,7 @@ public class Ourversetest implements ActionListener {
 
         JPanel passwordPanel = new JPanel();
         passwordPanel.setLayout(new BoxLayout(passwordPanel, BoxLayout.X_AXIS)); // Horizontal layout
-        JLabel passwordLabel = new JLabel("Password:");
+        JLabel passwordLabel = new JLabel("Kata Sandi:");
         passwordLabel.setPreferredSize(new java.awt.Dimension(100, 20)); // Fixed size for the label
         passwordField = new JPasswordField();
         passwordField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30)); // Allow full width resizing
@@ -134,8 +158,10 @@ public class Ourversetest implements ActionListener {
         passwordPanel.add(passwordField);
 
         // Login button
-        JButton loginButton = new JButton("Login");
+        JButton loginButton = new JButton("Masuk");
         loginButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        loginButton.setBackground(Color.GREEN); // Mengatur warna latar belakang tombol staff
+        loginButton.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
         loginButton.addActionListener(e -> {
             String username = usernameField.getText();
             String password = new String(passwordField.getPassword());
@@ -155,6 +181,8 @@ public class Ourversetest implements ActionListener {
         // Back to main menu button
         JButton backButton = new JButton("Kembali ke Menu Utama");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY); // Mengatur warna latar belakang tombol staff
+        backButton.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
         backButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Main Menu");
@@ -181,15 +209,16 @@ public class Ourversetest implements ActionListener {
         StaffPanelM.setLayout(new BoxLayout(StaffPanelM, BoxLayout.Y_AXIS));
         StaffPanelM.setBorder(new EmptyBorder(20, 30, 20, 30));
 
-        JLabel MenuLabel = new JLabel("Menu Staff");
+        JLabel MenuLabel = new JLabel("Menu Khusus Pegawai");
         MenuLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         MenuLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
         JButton StaffAddMerchButton = new JButton("Menambahkan Daftar Merch");
         StaffAddMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffAddMerchButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Daftar Merch Ditambahkan", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardPanel.add(createAddMerchPanel(), "Add Merch");
+            cardLayout.show(cardPanel, "Add Merch");
         });
 
         JButton StaffAddStockMerchButton = new JButton("Menambahkan Stok Merch");
@@ -199,11 +228,12 @@ public class Ourversetest implements ActionListener {
             cardLayout.show(cardPanel, "Staff AddStock");
         });
 
-        JButton StaffViewMerchButton = new JButton("Melihat Daftar List Merch");
+        JButton StaffViewMerchButton = new JButton("Melihat Daftar Merch");
         StaffViewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffViewMerchButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Melihat Daftar Merch", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardPanel.add(createMerchListPanel(), "Merch List");
+            cardLayout.show(cardPanel, "Merch List");
         });
 
         JButton StaffOrderMerchViewButton = new JButton("Melihat Daftar Pesanan Merch");
@@ -215,11 +245,14 @@ public class Ourversetest implements ActionListener {
 
         JButton backButton = new JButton("Kembali ke Menu Utama");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
         backButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Main Menu");
         });
 
+        // Menambahkan semua komponen ke panel staff
         StaffPanelM.add(Box.createVerticalGlue());
         StaffPanelM.add(MenuLabel);
         StaffPanelM.add(Box.createVerticalStrut(20));
@@ -231,9 +264,9 @@ public class Ourversetest implements ActionListener {
         StaffPanelM.add(Box.createVerticalStrut(10));
         StaffPanelM.add(StaffOrderMerchViewButton);
         StaffPanelM.add(Box.createVerticalStrut(10));
-        StaffPanelM.add(Box.createVerticalStrut(20));
         StaffPanelM.add(backButton);
         StaffPanelM.add(Box.createVerticalGlue());
+
         return StaffPanelM;
     }
 
@@ -363,8 +396,9 @@ public class Ourversetest implements ActionListener {
         JButton viewMerchButton = new JButton("Melihat Daftar Merch");
         viewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         viewMerchButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog(null, "Daftar Merch Ditampilkan", "Informasi",
-                    JOptionPane.INFORMATION_MESSAGE);
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardPanel.add(createMerchListPanel(), "Merch List"); // Menambahkan panel merchandise
+            cardLayout.show(cardPanel, "Merch List"); // Menampilkan panel merchandise
         });
 
         JButton orderMerchButton = new JButton("Memesan Merch");
@@ -379,11 +413,12 @@ public class Ourversetest implements ActionListener {
         viewOrdersButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Order History");
-
         });
 
         JButton backButton = new JButton("Kembali ke Menu Utama");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY); // Mengatur warna latar belakang tombol staff
+        backButton.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
         backButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Main Menu");
@@ -506,6 +541,18 @@ public class Ourversetest implements ActionListener {
         fieldPanel.add(label);
         fieldPanel.add(Box.createHorizontalStrut(10));
         fieldPanel.add(textField);
+        panel.add(fieldPanel);
+        panel.add(Box.createVerticalStrut(10));
+    }
+
+    private void addLabeledField(JPanel panel, String labelText, JComboBox<String> comboBox) {
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new java.awt.Dimension(120, 20));
+        fieldPanel.add(label);
+        fieldPanel.add(Box.createHorizontalStrut(10));
+        fieldPanel.add(comboBox);
         panel.add(fieldPanel);
         panel.add(Box.createVerticalStrut(10));
     }
