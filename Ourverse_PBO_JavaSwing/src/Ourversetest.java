@@ -1,7 +1,6 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -10,7 +9,9 @@ import java.awt.event.KeyAdapter;
 import javax.swing.text.DocumentFilter.FilterBypass;
 import javax.swing.text.JTextComponent;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.DefaultTableModel;
+
+import java.awt.CardLayout;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -181,8 +182,6 @@ public class Ourversetest implements ActionListener {
         // Back to main menu button
         JButton backButton = new JButton("Kembali ke Menu Utama");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        backButton.setBackground(Color.GRAY); // Mengatur warna latar belakang tombol staff
-        backButton.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
         backButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Main Menu");
@@ -209,7 +208,7 @@ public class Ourversetest implements ActionListener {
         StaffPanelM.setLayout(new BoxLayout(StaffPanelM, BoxLayout.Y_AXIS));
         StaffPanelM.setBorder(new EmptyBorder(20, 30, 20, 30));
 
-        JLabel MenuLabel = new JLabel("Menu Khusus Pegawai");
+        JLabel MenuLabel = new JLabel("Menu Staff");
         MenuLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         MenuLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
@@ -224,11 +223,11 @@ public class Ourversetest implements ActionListener {
         JButton StaffAddStockMerchButton = new JButton("Menambahkan Stok Merch");
         StaffAddStockMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffAddStockMerchButton.addActionListener(e -> {
-            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-            cardLayout.show(cardPanel, "Staff AddStock");
+            JOptionPane.showMessageDialog(null, "Stok Merch Ditambahkan", "Informasi",
+                    JOptionPane.INFORMATION_MESSAGE);
         });
 
-        JButton StaffViewMerchButton = new JButton("Melihat Daftar Merch");
+        JButton StaffViewMerchButton = new JButton("Melihat Daftar List Merch");
         StaffViewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffViewMerchButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
@@ -252,7 +251,6 @@ public class Ourversetest implements ActionListener {
             cardLayout.show(cardPanel, "Main Menu");
         });
 
-        // Menambahkan semua komponen ke panel staff
         StaffPanelM.add(Box.createVerticalGlue());
         StaffPanelM.add(MenuLabel);
         StaffPanelM.add(Box.createVerticalStrut(20));
@@ -266,124 +264,9 @@ public class Ourversetest implements ActionListener {
         StaffPanelM.add(Box.createVerticalStrut(10));
         StaffPanelM.add(backButton);
         StaffPanelM.add(Box.createVerticalGlue());
-
         return StaffPanelM;
     }
 
-    private JPanel StaffAddStockMerchPanel() {
-        JPanel StaffAddSPanel = new JPanel();
-        StaffAddSPanel.setLayout(new BoxLayout(StaffAddSPanel, BoxLayout.Y_AXIS));
-        StaffAddSPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
-
-        JLabel LabelStaffStock = new JLabel("Menu Tambah Stock");
-        LabelStaffStock.setFont(new Font("SansSerif", Font.BOLD, 20));
-        LabelStaffStock.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-
-        StaffAddSPanel.add(LabelStaffStock);
-        StaffAddSPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-
-        JComboBox<String> comboBoxItems = new JComboBox<>();
-        StaffAddSPanel.add(new JLabel("Pilih Barang:"));
-        StaffAddSPanel.add(comboBoxItems);
-
-        JTextField stockInputField = new JTextField(10);
-        StaffAddSPanel.add(new JLabel("Tambah Jumlah Stok:"));
-        StaffAddSPanel.add(stockInputField);
-
-        JButton addButton = new JButton("Tambah Stok");
-        StaffAddSPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-        StaffAddSPanel.add(addButton);
-
-        JTable stockTable = new JTable();
-        DefaultTableModel tableModel = new DefaultTableModel(
-                new String[] { "Nama Merch", "Deskripsi", "ID Merch", "Stok", "Harga" }, 0);
-        stockTable.setModel(tableModel);
-        JScrollPane tableScrollPane = new JScrollPane(stockTable);
-        tableScrollPane.setPreferredSize(new Dimension(500, 200));
-        StaffAddSPanel.add(Box.createRigidArea(new Dimension(0, 20)));
-        StaffAddSPanel.add(tableScrollPane);
-
-        // Load data from database
-        loadStockData(comboBoxItems, tableModel);
-
-        // AddListener for adding stock
-        addButton.addActionListener(e -> {
-            String selectedItem = (String) comboBoxItems.getSelectedItem();
-            String additionalStockStr = stockInputField.getText();
-
-            if (selectedItem == null || additionalStockStr.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Pilih barang dan masukkan jumlah stok!");
-                return;
-            }
-
-            try {
-                int additionalStock = Integer.parseInt(additionalStockStr);
-                updateStock(selectedItem, additionalStock, tableModel);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Masukkan jumlah stok yang valid!");
-            }
-        });
-
-        return StaffAddSPanel;
-    }
-
-    private void loadStockData(JComboBox<String> comboBox, DefaultTableModel tableModel) {
-        koneksi dbKoneksi = new koneksi();
-        try (Connection conn = dbKoneksi.connect();
-                Statement state = conn.createStatement();
-                ResultSet rs = state.executeQuery("SELECT * FROM products")) {
-
-            while (rs.next()) {
-                String name = rs.getString("nama_merch");
-                String desc = rs.getString("deskripsi_barang");
-                String id = rs.getString("id_merch");
-                int stok = rs.getInt("stok");
-                double price = rs.getDouble("harga");
-
-                tableModel.addRow(new Object[] { name, desc, id, stok, price });
-                comboBox.addItem(name);
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error fetching data: " + e.getMessage());
-        }
-    }
-
-    private void updateStock(String selectedItem, int additionalStock, DefaultTableModel tableModel) {
-        koneksi dbKoneksi = new koneksi();
-        try (Connection conn = dbKoneksi.connect()) {
-            String selectQuery = "SELECT id_merch, stok FROM products WHERE nama_merch = ?";
-            try (PreparedStatement selectStmt = conn.prepareStatement(selectQuery)) {
-                selectStmt.setString(1, selectedItem);
-                try (ResultSet rs = selectStmt.executeQuery()) {
-                    if (rs.next()) {
-                        int id = rs.getInt("id_merch");
-                        int currentStock = rs.getInt("stok");
-                        int newStock = currentStock + additionalStock;
-
-                        String updateQuery = "UPDATE products SET stok = ? WHERE id_merch = ?";
-                        try (PreparedStatement updateStmt = conn.prepareStatement(updateQuery)) {
-                            updateStmt.setInt(1, newStock);
-                            updateStmt.setInt(2, id);
-                            updateStmt.executeUpdate();
-
-                            // Update tabel
-                            for (int i = 0; i < tableModel.getRowCount(); i++) {
-                                if (tableModel.getValueAt(i, 0).equals(selectedItem)) {
-                                    tableModel.setValueAt(newStock, i, 3);
-                                    break;
-                                }
-                            }
-                            JOptionPane.showMessageDialog(null, "Stok berhasil diperbarui!");
-                        }
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error updating stock: " + e.getMessage());
-        }
-    }
-
-    // Buyer Session
     private JPanel createBuyerSessionPanel() {
         JPanel buyerPanel = new JPanel();
         buyerPanel.setLayout(new BoxLayout(buyerPanel, BoxLayout.Y_AXIS));
@@ -541,18 +424,6 @@ public class Ourversetest implements ActionListener {
         fieldPanel.add(label);
         fieldPanel.add(Box.createHorizontalStrut(10));
         fieldPanel.add(textField);
-        panel.add(fieldPanel);
-        panel.add(Box.createVerticalStrut(10));
-    }
-
-    private void addLabeledField(JPanel panel, String labelText, JComboBox<String> comboBox) {
-        JPanel fieldPanel = new JPanel();
-        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
-        JLabel label = new JLabel(labelText);
-        label.setPreferredSize(new java.awt.Dimension(120, 20));
-        fieldPanel.add(label);
-        fieldPanel.add(Box.createHorizontalStrut(10));
-        fieldPanel.add(comboBox);
         panel.add(fieldPanel);
         panel.add(Box.createVerticalStrut(10));
     }
