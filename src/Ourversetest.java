@@ -32,6 +32,9 @@ public class Ourversetest implements ActionListener {
 
     public static void main(String[] args) {
         Ourversetest app = new Ourversetest();
+        app.merchandiseList.add(new Merchandise("A123", "T-Shirt", "20000", "100"));
+        app.merchandiseList.add(new Merchandise("B456", "Hoodie", "35000", "50"));
+        app.merchandiseList.add(new Merchandise("C789", "Mug", "15000", "200"));
         app.createAndShowGUI();
     }
 
@@ -104,7 +107,7 @@ public class Ourversetest implements ActionListener {
         }
     }
 
-    class Merchandise {
+    static class Merchandise {
         String code;
         String name;
         String price;
