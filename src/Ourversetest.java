@@ -163,7 +163,7 @@ public class Ourversetest implements ActionListener {
                 CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
                 cardLayout.show(cardPanel, "Staff Menu");
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Masukkan nama dan kata sandi!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         // loginButton.addActionListener(e -> {
@@ -228,7 +228,7 @@ public class Ourversetest implements ActionListener {
         StaffViewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         StaffViewMerchButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-            cardPanel.add(createMerchListPanel(), "Merch List");
+            cardPanel.add(createMerchListPanel("Staff"), "Merch List");
             cardLayout.show(cardPanel, "Merch List");
         });
     
@@ -266,65 +266,63 @@ public class Ourversetest implements ActionListener {
         return StaffPanelM;
     }
 
-
-    private JPanel createMerchListPanel() {
-    JPanel merchListPanel = new JPanel();
-    merchListPanel.setLayout(new BoxLayout(merchListPanel, BoxLayout.Y_AXIS));
-    merchListPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
-
-    JLabel merchListLabel = new JLabel("Daftar List Merchandise");
-    merchListLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-    merchListLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-
-    // Data untuk tabel merchandise
-    String[][] merchData = new String[merchandiseList.size()][4];
-    for (int i = 0; i < merchandiseList.size(); i++) {
-        Merchandise merch = merchandiseList.get(i);
-        merchData[i][0] = merch.code;
-        merchData[i][1] = merch.name;
-        merchData[i][2] = merch.price;
-        merchData[i][3] = merch.stock;
-    }
-
-    // Nama kolom untuk tabel
-    String[] columnNames = {"Kode Merch", "Nama Merch", "Harga Merch", "Jumlah Stok Merch"};
-
-    // Membuat DefaultTableModel
-    DefaultTableModel tableModel = new DefaultTableModel(merchData, columnNames) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false; // Mengatur agar sel tidak dapat diedit
+    private JPanel createMerchListPanel(String userType) {
+        JPanel merchListPanel = new JPanel();
+        merchListPanel.setLayout(new BoxLayout(merchListPanel, BoxLayout.Y_AXIS));
+        merchListPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
+    
+        JLabel merchListLabel = new JLabel("Daftar List Merchandise");
+        merchListLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+        merchListLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+    
+        // Data untuk tabel merchandise
+        String[][] merchData = new String[merchandiseList.size()][4];
+        for (int i = 0; i < merchandiseList.size(); i++) {
+            Merchandise merch = merchandiseList.get(i);
+            merchData[i][0] = merch.code;
+            merchData[i][1] = merch.name;
+            merchData[i][2] = merch.price;
+            merchData[i][3] = merch.stock;
         }
-    };
-
-    // Membuat JTable
-    JTable merchTable = new JTable(tableModel);
-    merchTable.setFillsViewportHeight(true);
-    merchTable.setPreferredScrollableViewportSize(new Dimension(350, 200)); // Set preferred size for scrolling
-
-    JScrollPane scrollPane = new JScrollPane(merchTable);
-    scrollPane.setAlignmentX(JScrollPane.CENTER_ALIGNMENT);
-
-    JButton backButton = new JButton("Kembali ke Menu Pegawai");
-    backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    backButton.setBackground(Color.GRAY); // Mengatur warna latar belakang tombol staff
-    backButton.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
-    backButton.addActionListener(e -> {
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, "Staff Menu");
-    });
-
-    merchListPanel.add(Box.createVerticalGlue());
-    merchListPanel.add(merchListLabel);
-    merchListPanel.add(Box.createVerticalStrut(20));
-    merchListPanel.add(scrollPane);
-    merchListPanel.add(Box.createVerticalStrut(20));
-    merchListPanel.add(backButton);
-    merchListPanel.add(Box.createVerticalGlue());
-
-    return merchListPanel;
-}
-
+    
+        // Nama kolom untuk tabel
+        String[] columnNames = {"Kode Merch", "Nama Merch", "Harga Merch", "Jumlah Stok Merch"};
+    
+        // Membuat DefaultTableModel
+        DefaultTableModel tableModel = new DefaultTableModel(merchData, columnNames) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Mengatur agar sel tidak dapat diedit
+            }
+        };
+    
+        // Membuat JTable
+        JTable merchTable = new JTable(tableModel);
+        merchTable.setFillsViewportHeight(true);
+        merchTable.setPreferredScrollableViewportSize(new Dimension(350, 200)); // Set preferred size for scrolling
+    
+        JScrollPane scrollPane = new JScrollPane(merchTable);
+        scrollPane.setAlignmentX(JScrollPane.CENTER_ALIGNMENT);
+    
+        JButton backButton = new JButton("Kembali ke Menu " + (userType.equals("Buyer") ? "Pembeli" : "Pegawai"));
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, userType.equals("Buyer") ? "Buyer Session" : "Staff Menu");
+        });
+    
+        merchListPanel.add(Box.createVerticalGlue());
+        merchListPanel.add(merchListLabel);
+        merchListPanel.add(Box.createVerticalStrut(20));
+        merchListPanel.add(scrollPane);
+        merchListPanel.add(Box.createVerticalStrut(20));
+        merchListPanel.add(backButton);
+        merchListPanel.add(Box.createVerticalGlue());
+    
+        return merchListPanel;
+    }
 
 // Kelas untuk tombol di tabel
 class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -581,17 +579,17 @@ class ButtonEditor extends DefaultCellEditor {
         buyerPanel.setLayout(new BoxLayout(buyerPanel, BoxLayout.Y_AXIS));
         buyerPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
     
-        JLabel titleLabel = new JLabel("Buyer Session");
+        JLabel titleLabel = new JLabel("Menu Pembelian");
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         titleLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
     
         JButton viewMerchButton = new JButton("Melihat Daftar Merch");
-        viewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-        viewMerchButton.addActionListener(e -> {
-            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-            cardPanel.add(createMerchListPanel(), "Merch List"); // Menambahkan panel merchandise
-            cardLayout.show(cardPanel, "Merch List"); // Menampilkan panel merchandise
-        });
+viewMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+viewMerchButton.addActionListener(e -> {
+    CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+    cardPanel.add(createMerchListPanel("Buyer"), "Merch List");
+    cardLayout.show(cardPanel, "Merch List");
+});
     
         JButton orderMerchButton = new JButton("Memesan Merch");
         orderMerchButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
@@ -650,8 +648,10 @@ class ButtonEditor extends DefaultCellEditor {
         addLabeledField(orderFormPanel, "Daftar Merch:", merchListField);
         addLabeledField(orderFormPanel, "Metode Pembayaran:", paymentMethodField);
 
-        JButton submitButton = new JButton("Submit");
+        JButton submitButton = new JButton("Kirim");
         submitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        submitButton.setBackground(Color.GREEN); // Mengatur warna latar belakang tombol Selesai
+        submitButton.setOpaque(true); // Agar warna latar belakang terlihat
         submitButton.addActionListener(e -> {
             String name = nameField.getText();
             String address = addressField.getText();
@@ -676,8 +676,10 @@ class ButtonEditor extends DefaultCellEditor {
         });
 
 
-        JButton backButton = new JButton("Kembali ke Buyer Session");
+        JButton backButton = new JButton("Kembali ke menu Pembeli");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
         backButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Buyer Session");
@@ -707,11 +709,13 @@ class ButtonEditor extends DefaultCellEditor {
         JScrollPane scrollPane = new JScrollPane(orderHistoryTextArea);
         scrollPane.setAlignmentX(JScrollPane.CENTER_ALIGNMENT);
 
-        JButton backButton = new JButton("Kembali ke Buyer Session");
+        JButton backButton = new JButton("Kembali ke menu Pegawai");
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY); // Mengatur warna latar belakang tombol staff
+        backButton.setForeground(Color.WHITE); // Mengatur warna teks tombol staff menjadi putih
         backButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-            cardLayout.show(cardPanel, "Buyer Session");
+            cardLayout.show(cardPanel, "Staff Menu");
         });
 
         orderHistoryPanel.add(Box.createVerticalGlue());
@@ -775,4 +779,4 @@ class ButtonEditor extends DefaultCellEditor {
             }
         });
     }
-}
+} 
