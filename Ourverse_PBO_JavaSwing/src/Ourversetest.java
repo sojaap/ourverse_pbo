@@ -25,8 +25,8 @@ public class Ourversetest implements ActionListener {
     private JTextField addressField;
     private JComboBox<Merchandise> merchDropdown;
     private JTextField merchqtyField;
-    private JLabel priceLabel;  
-    private JLabel totalLabel;  
+    private JLabel priceLabel;
+    private JLabel totalLabel;
     private JTextField paymentMethodField;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -38,22 +38,22 @@ public class Ourversetest implements ActionListener {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Ourversetest app = new Ourversetest();
-                app.merchandiseList.add(new Merchandise("1", "Seventeen Necklace", "150,000", "100"));
-                app.merchandiseList.add(new Merchandise("2", "Seventeen Shoulder Strap", "100,000", "100"));
-                app.merchandiseList.add(new Merchandise("3", "Seventeen Photo Card", "50,000", "100"));
-                app.merchandiseList.add(new Merchandise("4", "Seventeen Film Keyring", "140,000", "100"));
-                app.merchandiseList.add(new Merchandise("5", "Seventeen Acrylic Stand", "150,000", "100"));
-                app.merchandiseList.add(new Merchandise("6", "Seventeen Mini Picket Keyring", "200,000", "100"));
-                app.merchandiseList.add(new Merchandise("7", "BONGBONGEE Water Ball Keyring", "225,000", "100"));
-                app.merchandiseList.add(new Merchandise("8", "OFFICIAL LIGHT STICK VER.3", "550,000", "100"));
-                app.merchandiseList.add(new Merchandise("9", "Seventeen Long Glass Cup", "150,000", "100"));
-                app.merchandiseList.add(new Merchandise("10", "SEVENTEEN 2025 SEASON'S GREETING", "225,000", "100"));
+            app.merchandiseList.add(new Merchandise("1", "Seventeen Necklace", "150,000", "100"));
+            app.merchandiseList.add(new Merchandise("2", "Seventeen Shoulder Strap", "100,000", "100"));
+            app.merchandiseList.add(new Merchandise("3", "Seventeen Photo Card", "50,000", "100"));
+            app.merchandiseList.add(new Merchandise("4", "Seventeen Film Keyring", "140,000", "100"));
+            app.merchandiseList.add(new Merchandise("5", "Seventeen Acrylic Stand", "150,000", "100"));
+            app.merchandiseList.add(new Merchandise("6", "Seventeen Mini Picket Keyring", "200,000", "100"));
+            app.merchandiseList.add(new Merchandise("7", "BONGBONGEE Water Ball Keyring", "225,000", "100"));
+            app.merchandiseList.add(new Merchandise("8", "OFFICIAL LIGHT STICK VER.3", "550,000", "100"));
+            app.merchandiseList.add(new Merchandise("9", "Seventeen Long Glass Cup", "150,000", "100"));
+            app.merchandiseList.add(new Merchandise("10", "SEVENTEEN 2025 SEASON'S GREETING", "225,000", "100"));
 
             app.createAndShowGUI();
         });
     }
 
-    //bantu harga
+    // bantu harga
     private double parsePrice(String priceStr) {
         try {
             // Hapus semua karakter koma dan titik
@@ -159,16 +159,17 @@ public class Ourversetest implements ActionListener {
             this.isOrdered = false;
         }
 
-        //menambahkan supaya merchandis gak error
+        // menambahkan supaya merchandis gak error
         @Override
         public String toString() {
             return name + " - Rp " + price;
         }
+
         public String getOrderInfo() {
             if (isOrdered) {
                 return String.format("Kode: %s\nNama: %s\nAlamat: %s\nMerch: %s\n" +
-                                   "Quantity: %d\nPembayaran: %s\n",
-                                   code, buyerName, address, name, quantity, paymentMethod);
+                        "Quantity: %d\nPembayaran: %s\n",
+                        code, buyerName, address, name, quantity, paymentMethod);
             }
             return null;
         }
@@ -220,13 +221,10 @@ public class Ourversetest implements ActionListener {
                 CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
                 cardLayout.show(cardPanel, "Staff Menu");
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nama atau Sandi salah! Mohon cek kembali.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
-        // loginButton.addActionListener(e -> {
-        // JOptionPane.showMessageDialog(null, "Login Button Clicked", "Information",
-        // JOptionPane.INFORMATION_MESSAGE);
-        // });
 
         // Back to main menu button
         JButton backButton = new JButton("Kembali ke Menu Utama");
@@ -330,37 +328,37 @@ public class Ourversetest implements ActionListener {
         JPanel merchListPanel = new JPanel();
         merchListPanel.setLayout(new BoxLayout(merchListPanel, BoxLayout.Y_AXIS));
         merchListPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
-    
+
         JLabel merchListLabel = new JLabel("Daftar List Merchandise");
         merchListLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         merchListLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
-    
+
         // Create table model with refreshable data
         DefaultTableModel tableModel = new DefaultTableModel(
-            new String[]{"Kode Merch", "Nama Merch", "Harga Merch", "Jumlah Stok Merch"}, 
-            0  // Start with 0 rows
+                new String[] { "Kode Merch", "Nama Merch", "Harga Merch", "Jumlah Stok Merch" },
+                0 // Start with 0 rows
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-    
+
         // Create table with the model
         JTable merchTable = new JTable(tableModel);
         merchTable.setFillsViewportHeight(true);
         merchTable.setPreferredScrollableViewportSize(new Dimension(350, 200));
-    
+
         // Method to refresh table data
         refreshTableData(tableModel);
-    
+
         JScrollPane scrollPane = new JScrollPane(merchTable);
         scrollPane.setAlignmentX(JScrollPane.CENTER_ALIGNMENT);
-    
+
         // Button text and target based on source
         String buttonText = source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli";
         String targetCard = source.equals("staff") ? "Staff Menu" : "Buyer Session";
-    
+
         JButton backButton = new JButton(buttonText);
         backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         backButton.setBackground(Color.GRAY);
@@ -369,12 +367,12 @@ public class Ourversetest implements ActionListener {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, targetCard);
         });
-    
+
         // Add refresh button for real-time updates
         JButton refreshButton = new JButton("Refresh Daftar");
         refreshButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         refreshButton.addActionListener(e -> refreshTableData(tableModel));
-    
+
         merchListPanel.add(Box.createVerticalGlue());
         merchListPanel.add(merchListLabel);
         merchListPanel.add(Box.createVerticalStrut(20));
@@ -384,22 +382,22 @@ public class Ourversetest implements ActionListener {
         merchListPanel.add(Box.createVerticalStrut(10));
         merchListPanel.add(backButton);
         merchListPanel.add(Box.createVerticalGlue());
-    
+
         return merchListPanel;
     }
-    
+
     // Add this new method to refresh table data
     private void refreshTableData(DefaultTableModel model) {
         // Clear existing rows
         model.setRowCount(0);
-        
+
         // Add current data from merchandiseList
         for (Merchandise merch : merchandiseList) {
-            model.addRow(new Object[]{
-                merch.code,
-                merch.name,
-                merch.price,
-                merch.stock
+            model.addRow(new Object[] {
+                    merch.code,
+                    merch.name,
+                    merch.price,
+                    merch.stock
             });
         }
     }
@@ -490,50 +488,50 @@ public class Ourversetest implements ActionListener {
             String name = nameField.getText().trim();
             String price = priceField.getText().trim();
             String stock = stockField.getText().trim();
-        
+
             // 2. Validasi input - memastikan semua field terisi
             if (code.isEmpty() || name.isEmpty() || price.isEmpty() || stock.isEmpty()) {
-                JOptionPane.showMessageDialog(null, 
-                    "Anda harus memasukkan data!", 
-                    "Error", 
-                    JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null,
+                        "Anda harus memasukkan data!",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return; // Keluar dari method jika ada yang kosong
             }
-        
+
             // 3. Validasi kode merchandise yang unik
             for (Merchandise existingMerch : merchandiseList) {
                 if (existingMerch.code.equals(code)) {
                     JOptionPane.showMessageDialog(null,
-                        "Kode merchandise sudah digunakan!",
-                        "Error",
-                        JOptionPane.ERROR_MESSAGE);
+                            "Kode merchandise sudah digunakan!",
+                            "Error",
+                            JOptionPane.ERROR_MESSAGE);
                     return;
                 }
             }
-        
+
             // 4. Membuat objek Merchandise baru dan menambahkannya ke list
             Merchandise newMerch = new Merchandise(code, name, price, stock);
             merchandiseList.add(newMerch);
-        
+
             // 5. Memperbarui dropdown di form pemesanan
             refreshOrderFormDropdown(merchDropdown);
-        
+
             // 6. Menampilkan pesan sukses dengan detail merchandise yang ditambahkan
-            JOptionPane.showMessageDialog(null, 
-                "Data Merch Ditambahkan:\n" +
-                "Kode: " + code + "\n" +
-                "Nama: " + name + "\n" +
-                "Harga: " + price + "\n" +
-                "Stok: " + stock, 
-                "Informasi", 
-                JOptionPane.INFORMATION_MESSAGE);
-        
+            JOptionPane.showMessageDialog(null,
+                    "Data Merch Ditambahkan:\n" +
+                            "Kode: " + code + "\n" +
+                            "Nama: " + name + "\n" +
+                            "Harga: " + price + "\n" +
+                            "Stok: " + stock,
+                    "Informasi",
+                    JOptionPane.INFORMATION_MESSAGE);
+
             // 7. Mengosongkan semua field input
             codeField.setText("");
             nameField.setText("");
             priceField.setText("");
             stockField.setText("");
-        
+
             // 8. Kembali ke menu staff
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Staff Menu");
@@ -563,12 +561,14 @@ public class Ourversetest implements ActionListener {
     // Menu Menambahkan stock Merch
     private JPanel createEditStockPanel() {
         JPanel editStockPanel = new JPanel();
-        editStockPanel.setLayout(new BoxLayout(editStockPanel, BoxLayout.Y_AXIS));
+        editStockPanel.setLayout(new BoxLayout(editStockPanel, BoxLayout.Y_AXIS)); // Komponen disusun vertikal
         editStockPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
         JLabel editLabel = new JLabel("Edit Stok Merchandise");
         editLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         editLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        editStockPanel.add(editLabel);
+        editStockPanel.add(Box.createVerticalStrut(20)); // Spasi antar komponen
 
         // ComboBox untuk memilih kode merchandise
         JComboBox<String> codeComboBox = new JComboBox<>();
@@ -577,99 +577,102 @@ public class Ourversetest implements ActionListener {
         }
         codeComboBox.addActionListener(e -> {
             String selectedCode = (String) codeComboBox.getSelectedItem();
-            for (Merchandise merch : merchandiseList) {
-                if (merch.code.equals(selectedCode)) {
-                    // Tampilkan data merchandise yang dipilih
-                    nameField.setText(merch.name);
-                    priceField.setText(merch.price);
-                    stockField.setText(merch.stock);
-                    break;
+            if (selectedCode != null) {
+                for (Merchandise merch : merchandiseList) {
+                    if (merch.code.equals(selectedCode)) {
+                        // Isi field dengan data merchandise yang sesuai
+                        nameField.setText(merch.name);
+                        priceField.setText(merch.price);
+                        stockField.setText(merch.stock);
+                        break;
+                    }
                 }
             }
         });
 
         // Input fields
-        nameField = new JTextField();
-        priceField = new JTextField();
-        stockField = new JTextField();
+        nameField = new JTextField(10);
+        priceField = new JTextField(10);
+        stockField = new JTextField(10);
 
-        // Menambahkan field input ke panel
-        addLabeledField(editStockPanel, "Kode Merch:", codeComboBox);
-        addLabeledField(editStockPanel, "Nama Merch:", nameField);
-        addLabeledField(editStockPanel, "Harga Merch:", priceField);
-        addLabeledField(editStockPanel, "Jumlah Stok Merch:", stockField);
+        nameField.setEditable(false); // Hanya untuk display
+        priceField.setEditable(false); // Hanya untuk display
+
+        // Tambahkan semua komponen dengan label
+        editStockPanel.add(createLabeledFieldPanel("Kode Merch:", codeComboBox));
+        editStockPanel.add(Box.createVerticalStrut(30));
+        editStockPanel.add(createLabeledFieldPanel("Nama Merch:", nameField));
+        editStockPanel.add(Box.createVerticalStrut(30));
+        editStockPanel.add(createLabeledFieldPanel("Harga Merch:", priceField));
+        editStockPanel.add(Box.createVerticalStrut(30));
+        editStockPanel.add(createLabeledFieldPanel("Stok Merch:", stockField));
+        editStockPanel.add(Box.createVerticalStrut(30));
+        editStockPanel.add(Box.createVerticalStrut(20)); // Spasi antar field dan tombol
 
         // Tombol Simpan
         JButton saveButton = new JButton("Simpan");
-        saveButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         saveButton.setBackground(Color.GREEN);
         saveButton.setOpaque(true);
+        saveButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         saveButton.addActionListener(e -> {
             String selectedCode = (String) codeComboBox.getSelectedItem();
-            String name = nameField.getText().trim();
-            String price = priceField.getText().trim();
             String stock = stockField.getText().trim();
 
             // Validasi input
-            if (name.isEmpty() || price.isEmpty() || stock.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Anda harus memasukkan data!", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Kembali ke panel tanpa berpindah
+            if (stock.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Jumlah stok tidak boleh kosong!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            // Cari merchandise berdasarkan kode
+            // Update stok merchandise
             for (Merchandise merch : merchandiseList) {
                 if (merch.code.equals(selectedCode)) {
-                    // Update data merchandise
-                    merch.name = name;
-                    merch.price = price;
                     merch.stock = stock;
 
-                    JOptionPane.showMessageDialog(null, "Data Merch telah diperbarui:\n" +
+                    JOptionPane.showMessageDialog(null, "Stok merchandise berhasil diperbarui:\n" +
                             "Kode: " + selectedCode + "\n" +
-                            "Nama: " + name + "\n" +
-                            "Harga: " + price + "\n" +
+                            "Nama: " + merch.name + "\n" +
+                            "Harga: " + merch.price + "\n" +
                             "Stok: " + stock, "Informasi", JOptionPane.INFORMATION_MESSAGE);
-
-                    // Kembali ke menu staff setelah selesai
-                    CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-                    cardLayout.show(cardPanel, "Staff Menu");
                     return;
                 }
             }
 
-            // Jika kode tidak ditemukan
             JOptionPane.showMessageDialog(null, "Kode merchandise tidak ditemukan!", "Error",
                     JOptionPane.ERROR_MESSAGE);
         });
 
         // Tombol Batalkan
         JButton cancelButton = new JButton("Batalkan");
-        cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         cancelButton.setBackground(Color.RED);
         cancelButton.setOpaque(true);
+        cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         cancelButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Staff Menu"); // Kembali ke menu staff
         });
 
-        // Menambahkan semua komponen ke panel
-        editStockPanel.add(Box.createVerticalGlue());
-        editStockPanel.add(editLabel);
-        editStockPanel.add(Box.createVerticalStrut(20));
-        editStockPanel.add(codeComboBox);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(nameField);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(priceField);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(stockField);
-        editStockPanel.add(Box.createVerticalStrut(20));
-        editStockPanel.add(saveButton);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(cancelButton);
-        editStockPanel.add(Box.createVerticalGlue());
+        // Panel tombol
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(saveButton);
+        buttonPanel.add(Box.createHorizontalStrut(10)); // Spasi antar tombol
+        buttonPanel.add(cancelButton);
+        editStockPanel.add(buttonPanel);
 
         return editStockPanel;
+    }
+
+    // Fungsi untuk membuat panel berisi label dan field di satu baris
+    private JPanel createLabeledFieldPanel(String labelText, JComponent field) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS)); // Horizontal layout
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new Dimension(100, 10)); // Lebar tetap untuk label
+        panel.add(label);
+        panel.add(field);
+        return panel;
     }
 
     private JPanel createBuyerSessionPanel() {
@@ -748,8 +751,8 @@ public class Ourversetest implements ActionListener {
 
         // Pastikan merchandiseList sudah terdefinisi dan berisi data
         if (merchandiseList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Daftar merchandise kosong", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Daftar merchandise kosong", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         // supaya pas ngisi quantity cuma bisa terima angka
@@ -764,10 +767,18 @@ public class Ourversetest implements ActionListener {
 
         // Tambahkan DocumentListener untuk update total harga secara real-time
         merchqtyField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void changedUpdate(javax.swing.event.DocumentEvent e) { updateTotal(); }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) { updateTotal(); }
-            public void insertUpdate(javax.swing.event.DocumentEvent e) { updateTotal(); }
-        
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                updateTotal();
+            }
+
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                updateTotal();
+            }
+
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                updateTotal();
+            }
+
             private void updateTotal() {
                 Merchandise selectedMerch = (Merchandise) merchDropdown.getSelectedItem();
                 if (selectedMerch != null) {
@@ -803,7 +814,7 @@ public class Ourversetest implements ActionListener {
                 // Parse dan format harga
                 double price = parsePrice(selectedMerch.price);
                 priceLabel.setText("Rp " + formatPrice(price));
-                
+
                 // Update total jika quantity sudah diisi
                 String qtyText = merchqtyField.getText();
                 if (!qtyText.isEmpty()) {
@@ -827,84 +838,86 @@ public class Ourversetest implements ActionListener {
         addLabeledField(orderFormPanel, "Total Harga:", totalLabel);
         addLabeledField(orderFormPanel, "Metode Pembayaran:", paymentMethodField);
 
-    // Submit button
-    JButton submitButton = new JButton("Submit");
-    submitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    submitButton.setBackground(Color.GREEN);
+        // Submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        submitButton.setBackground(Color.GREEN);
 
-// In your createOrderFormPanel() method, replace the submit button action listener with this:
-submitButton.addActionListener(e -> {
-    String name = nameField.getText().trim();
-    String address = addressField.getText().trim();
-    Merchandise selectedMerch = (Merchandise) merchDropdown.getSelectedItem();
-    String paymentMethod = paymentMethodField.getText().trim();
+        // In your createOrderFormPanel() method, replace the submit button action
+        // listener with this:
+        submitButton.addActionListener(e -> {
+            String name = nameField.getText().trim();
+            String address = addressField.getText().trim();
+            Merchandise selectedMerch = (Merchandise) merchDropdown.getSelectedItem();
+            String paymentMethod = paymentMethodField.getText().trim();
 
-    // Validation
-    if (name.isEmpty() || address.isEmpty() || paymentMethod.isEmpty() || merchqtyField.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+            // Validation
+            if (name.isEmpty() || address.isEmpty() || paymentMethod.isEmpty() || merchqtyField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-    try {
-        int quantity = Integer.parseInt(merchqtyField.getText());
-        if (quantity <= 0) {
-            JOptionPane.showMessageDialog(null, "Quantity harus lebih dari 0!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            try {
+                int quantity = Integer.parseInt(merchqtyField.getText());
+                if (quantity <= 0) {
+                    JOptionPane.showMessageDialog(null, "Quantity harus lebih dari 0!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-        int currentStock = Integer.parseInt(selectedMerch.stock);
-        if (quantity > currentStock) {
-            JOptionPane.showMessageDialog(null, "Stok tidak mencukupi!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+                int currentStock = Integer.parseInt(selectedMerch.stock);
+                if (quantity > currentStock) {
+                    JOptionPane.showMessageDialog(null, "Stok tidak mencukupi!", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
-        // Calculate total price
-        double price = Double.parseDouble(selectedMerch.price.replace(",", ""));
-        double totalPrice = price * quantity;
+                // Calculate total price
+                double price = Double.parseDouble(selectedMerch.price.replace(",", ""));
+                double totalPrice = price * quantity;
 
-        // Update merchandise data
-        selectedMerch.stock = String.valueOf(currentStock - quantity);
-        selectedMerch.buyerName = name;
-        selectedMerch.address = address;
-        selectedMerch.quantity = quantity;
-        selectedMerch.paymentMethod = paymentMethod;
-        selectedMerch.isOrdered = true;
+                // Update merchandise data
+                selectedMerch.stock = String.valueOf(currentStock - quantity);
+                selectedMerch.buyerName = name;
+                selectedMerch.address = address;
+                selectedMerch.quantity = quantity;
+                selectedMerch.paymentMethod = paymentMethod;
+                selectedMerch.isOrdered = true;
 
                 // Show success message
                 String orderInfo = String.format(
-                    "Pesanan Berhasil:\n" +
-                    "Kode: %s\n" +
-                    "Nama: %s\n" +
-                    "Alamat: %s\n" +
-                    "Merch: %s\n" +
-                    "Quantity: %d\n" +
-                    "Pembayaran: %s",
-                    selectedMerch.code,
-                    name,
-                    address,
-                    selectedMerch.name,
-                    quantity,
-                    paymentMethod
-                );
+                        "Pesanan Berhasil:\n" +
+                                "Kode: %s\n" +
+                                "Nama: %s\n" +
+                                "Alamat: %s\n" +
+                                "Merch: %s\n" +
+                                "Quantity: %d\n" +
+                                "Pembayaran: %s",
+                        selectedMerch.code,
+                        name,
+                        address,
+                        selectedMerch.name,
+                        quantity,
+                        paymentMethod);
 
-        // Show success message with complete order details
-        JOptionPane.showMessageDialog(null, "Pesanan Berhasil:\n" + selectedMerch.getOrderInfo(), "Konfirmasi Pesanan", JOptionPane.INFORMATION_MESSAGE);
-    
-        // Reset form
-        nameField.setText("");
-        addressField.setText("");
-        merchqtyField.setText("");
-        paymentMethodField.setText("");
-        merchDropdown.setSelectedIndex(0);
+                // Show success message with complete order details
+                JOptionPane.showMessageDialog(null, "Pesanan Berhasil:\n" + selectedMerch.getOrderInfo(),
+                        "Konfirmasi Pesanan", JOptionPane.INFORMATION_MESSAGE);
 
-        // Return to buyer menu
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, "Buyer Session");
+                // Reset form
+                nameField.setText("");
+                addressField.setText("");
+                merchqtyField.setText("");
+                paymentMethodField.setText("");
+                merchDropdown.setSelectedIndex(0);
 
-    } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(null, "Quantity harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-});
+                // Return to buyer menu
+                CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+                cardLayout.show(cardPanel, "Buyer Session");
+
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "Quantity harus berupa angka!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        });
 
         // Tombol Kembali
         JButton backButton = new JButton("Kembali ke Menu Pembeli");
@@ -949,18 +962,18 @@ submitButton.addActionListener(e -> {
             JOptionPane.showMessageDialog(null, "Merchandise tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
         });
 
-    // Cancel button
-    JButton cancelButton = new JButton("Batalkan Pesanan");
-    cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    cancelButton.setBackground(Color.RED);
-    cancelButton.addActionListener(e -> {
-        nameField.setText("");
-        addressField.setText("");
-        merchqtyField.setText("");
-        paymentMethodField.setText("");
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, "Buyer Session");
-    });
+        // Cancel button
+        JButton cancelButton = new JButton("Batalkan Pesanan");
+        cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        cancelButton.setBackground(Color.RED);
+        cancelButton.addActionListener(e -> {
+            nameField.setText("");
+            addressField.setText("");
+            merchqtyField.setText("");
+            paymentMethodField.setText("");
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Buyer Session");
+        });
 
         orderFormPanel.add(Box.createVerticalStrut(20));
         orderFormPanel.add(submitButton);
@@ -971,6 +984,7 @@ submitButton.addActionListener(e -> {
         return orderFormPanel;
     }
 
+    // Menu Riwayat Pemesanan
     public JPanel createOrderHistoryPanel(String source) {
         JPanel orderHistoryPanel = new JPanel();
         orderHistoryPanel.setLayout(new BoxLayout(orderHistoryPanel, BoxLayout.Y_AXIS));
@@ -996,30 +1010,32 @@ submitButton.addActionListener(e -> {
             if (input != null) {
                 for (Merchandise merch : merchandiseList) {
                     if (merch.code.equals(input) && merch.buyerName != null) {
-                // Kembalikan stok dan hapus data pesanan
-                int restoredStock = Integer.parseInt(merch.stock) + merch.quantity;
-                merch.stock = String.valueOf(restoredStock);
-                merch.buyerName = null;
-                merch.address = null;
-                merch.quantity = 0;
-                merch.paymentMethod = null;
+                        // Kembalikan stok dan hapus data pesanan
+                        int restoredStock = Integer.parseInt(merch.stock) + merch.quantity;
+                        merch.stock = String.valueOf(restoredStock);
+                        merch.buyerName = null;
+                        merch.address = null;
+                        merch.quantity = 0;
+                        merch.paymentMethod = null;
 
-                JOptionPane.showMessageDialog(null, "Pesanan berhasil dihapus!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                updateOrderHistoryTextArea();
-                return;
+                        JOptionPane.showMessageDialog(null, "Pesanan berhasil dihapus!", "Informasi",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        updateOrderHistoryTextArea();
+                        return;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Pesanan tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        JOptionPane.showMessageDialog(null, "Pesanan tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-});
+        });
 
-    // Buat tombol kembali berdasarkan source
-    JButton backButton = new JButton(source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli");
-    backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    backButton.addActionListener(e -> {
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, source.equals("staff") ? "Staff Menu" : "Buyer Session");
-    });
+        // Buat tombol kembali berdasarkan source
+        JButton backButton = new JButton(
+                source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli");
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, source.equals("staff") ? "Staff Menu" : "Buyer Session");
+        });
 
         orderHistoryPanel.add(Box.createVerticalGlue());
         orderHistoryPanel.add(orderHistoryLabel);
@@ -1035,38 +1051,38 @@ submitButton.addActionListener(e -> {
     }
 
     // Versi untuk JTextField
-private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
-    JPanel fieldPanel = new JPanel();
-    fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
-    
-    JLabel label = new JLabel(labelText);
-    label.setPreferredSize(new java.awt.Dimension(120, 20));
-    
-    textField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
-    
-    fieldPanel.add(label);
-    fieldPanel.add(Box.createHorizontalStrut(10));
-    fieldPanel.add(textField);
-    
-    panel.add(fieldPanel);
-    panel.add(Box.createVerticalStrut(10));
-}
+    private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
 
-// Versi untuk Component lainnya (JComboBox, JLabel, dll)
-private void addLabeledField(JPanel panel, String labelText, Component component) {
-    JPanel fieldPanel = new JPanel();
-    fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
-    
-    JLabel label = new JLabel(labelText);
-    label.setPreferredSize(new java.awt.Dimension(120, 20));
-    
-    fieldPanel.add(label);
-    fieldPanel.add(Box.createHorizontalStrut(10));
-    fieldPanel.add(component);
-    
-    panel.add(fieldPanel);
-    panel.add(Box.createVerticalStrut(10));
-}
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new java.awt.Dimension(120, 20));
+
+        textField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
+
+        fieldPanel.add(label);
+        fieldPanel.add(Box.createHorizontalStrut(10));
+        fieldPanel.add(textField);
+
+        panel.add(fieldPanel);
+        panel.add(Box.createVerticalStrut(10));
+    }
+
+    // Versi untuk Component lainnya (JComboBox, JLabel, dll)
+    private void addLabeledField(JPanel panel, String labelText, Component component) {
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
+
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new java.awt.Dimension(120, 20));
+
+        fieldPanel.add(label);
+        fieldPanel.add(Box.createHorizontalStrut(10));
+        fieldPanel.add(component);
+
+        panel.add(fieldPanel);
+        panel.add(Box.createVerticalStrut(10));
+    }
 
     // untuk set character limit untuk username (masing-masing 20)
     public static void setCharacterLimit(JTextField textField, int limit) {
@@ -1094,44 +1110,43 @@ private void addLabeledField(JPanel panel, String labelText, Component component
         });
     }
 
-private void updateOrderHistoryTextArea() {
-    StringBuilder history = new StringBuilder();
-    int orderNumber = 1;
-    
-    for (Merchandise merch : merchandiseList) {
-        if (merch.isOrdered && merch.quantity > 0) {
-            history.append(String.format(
-                "Pesanan #%d\n" +
-                "Kode: %s\n" +
-                "Nama: %s\n" +
-                "Alamat: %s\n" +
-                "Merch: %s\n" +
-                "Quantity: %d\n" +
-                "Pembayaran: %s\n" +
-                "------------------------\n",
-                orderNumber++,
-                merch.code,
-                merch.buyerName,
-                merch.address,
-                merch.name,
-                merch.quantity,
-                merch.paymentMethod
-            ));
+    private void updateOrderHistoryTextArea() {
+        StringBuilder history = new StringBuilder();
+        int orderNumber = 1;
+
+        for (Merchandise merch : merchandiseList) {
+            if (merch.isOrdered && merch.quantity > 0) {
+                history.append(String.format(
+                        "Pesanan #%d\n" +
+                                "Kode: %s\n" +
+                                "Nama: %s\n" +
+                                "Alamat: %s\n" +
+                                "Merch: %s\n" +
+                                "Quantity: %d\n" +
+                                "Pembayaran: %s\n" +
+                                "------------------------\n",
+                        orderNumber++,
+                        merch.code,
+                        merch.buyerName,
+                        merch.address,
+                        merch.name,
+                        merch.quantity,
+                        merch.paymentMethod));
+            }
+        }
+
+        if (history.length() == 0) {
+            history.append("Belum ada pesanan.");
+        }
+
+        orderHistoryTextArea.setText(history.toString());
+    }
+
+    // Method untuk memperbarui dropdown merchandise di form pemesanan
+    private void refreshOrderFormDropdown(JComboBox<Merchandise> dropdown) {
+        dropdown.removeAllItems(); // Menghapus semua item yang ada
+        for (Merchandise merch : merchandiseList) {
+            dropdown.addItem(merch); // Menambahkan setiap merchandise ke dropdown
         }
     }
-    
-    if (history.length() == 0) {
-        history.append("Belum ada pesanan.");
-    }
-    
-    orderHistoryTextArea.setText(history.toString());
-}
-
-// Method untuk memperbarui dropdown merchandise di form pemesanan
-private void refreshOrderFormDropdown(JComboBox<Merchandise> dropdown) {
-    dropdown.removeAllItems(); // Menghapus semua item yang ada
-    for (Merchandise merch : merchandiseList) {
-        dropdown.addItem(merch); // Menambahkan setiap merchandise ke dropdown
-    }
-}
 }
