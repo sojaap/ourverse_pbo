@@ -200,7 +200,8 @@ public class Ourversetest implements ActionListener {
                 CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
                 cardLayout.show(cardPanel, "Staff Menu");
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid credentials!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Nama atau Sandi salah! Mohon cek kembali.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
             }
         });
         // loginButton.addActionListener(e -> {
@@ -512,12 +513,14 @@ public class Ourversetest implements ActionListener {
     // Menu Menambahkan stock Merch
     private JPanel createEditStockPanel() {
         JPanel editStockPanel = new JPanel();
-        editStockPanel.setLayout(new BoxLayout(editStockPanel, BoxLayout.Y_AXIS));
+        editStockPanel.setLayout(new BoxLayout(editStockPanel, BoxLayout.Y_AXIS)); // Komponen disusun vertikal
         editStockPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
         JLabel editLabel = new JLabel("Edit Stok Merchandise");
         editLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         editLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
+        editStockPanel.add(editLabel);
+        editStockPanel.add(Box.createVerticalStrut(20)); // Spasi antar komponen
 
         // ComboBox untuk memilih kode merchandise
         JComboBox<String> codeComboBox = new JComboBox<>();
@@ -526,99 +529,98 @@ public class Ourversetest implements ActionListener {
         }
         codeComboBox.addActionListener(e -> {
             String selectedCode = (String) codeComboBox.getSelectedItem();
-            for (Merchandise merch : merchandiseList) {
-                if (merch.code.equals(selectedCode)) {
-                    // Tampilkan data merchandise yang dipilih
-                    nameField.setText(merch.name);
-                    priceField.setText(merch.price);
-                    stockField.setText(merch.stock);
-                    break;
+            if (selectedCode != null) {
+                for (Merchandise merch : merchandiseList) {
+                    if (merch.code.equals(selectedCode)) {
+                        // Isi field dengan data merchandise yang sesuai
+                        nameField.setText(merch.name);
+                        priceField.setText(merch.price);
+                        stockField.setText(merch.stock);
+                        break;
+                    }
                 }
             }
         });
 
         // Input fields
-        nameField = new JTextField();
-        priceField = new JTextField();
-        stockField = new JTextField();
+        nameField = new JTextField(10);
+        priceField = new JTextField(10);
+        stockField = new JTextField(10);
 
-        // Menambahkan field input ke panel
-        addLabeledField(editStockPanel, "Kode Merch:", codeComboBox);
-        addLabeledField(editStockPanel, "Nama Merch:", nameField);
-        addLabeledField(editStockPanel, "Harga Merch:", priceField);
-        addLabeledField(editStockPanel, "Jumlah Stok Merch:", stockField);
+        nameField.setEditable(false); // Hanya untuk display
+        priceField.setEditable(false); // Hanya untuk display
+
+        // Tambahkan semua komponen dengan label
+        editStockPanel.add(createLabeledFieldPanel("Kode Merch:", codeComboBox));
+        editStockPanel.add(createLabeledFieldPanel("Nama Merch:", nameField));
+        editStockPanel.add(createLabeledFieldPanel("Harga Merch:", priceField));
+        editStockPanel.add(createLabeledFieldPanel("Stok Merch:", stockField));
+        editStockPanel.add(Box.createVerticalStrut(20)); // Spasi antar field dan tombol
 
         // Tombol Simpan
         JButton saveButton = new JButton("Simpan");
-        saveButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         saveButton.setBackground(Color.GREEN);
         saveButton.setOpaque(true);
+        saveButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         saveButton.addActionListener(e -> {
             String selectedCode = (String) codeComboBox.getSelectedItem();
-            String name = nameField.getText().trim();
-            String price = priceField.getText().trim();
             String stock = stockField.getText().trim();
 
             // Validasi input
-            if (name.isEmpty() || price.isEmpty() || stock.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "Anda harus memasukkan data!", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Kembali ke panel tanpa berpindah
+            if (stock.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Jumlah stok tidak boleh kosong!", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            // Cari merchandise berdasarkan kode
+            // Update stok merchandise
             for (Merchandise merch : merchandiseList) {
                 if (merch.code.equals(selectedCode)) {
-                    // Update data merchandise
-                    merch.name = name;
-                    merch.price = price;
                     merch.stock = stock;
 
-                    JOptionPane.showMessageDialog(null, "Data Merch telah diperbarui:\n" +
+                    JOptionPane.showMessageDialog(null, "Stok merchandise berhasil diperbarui:\n" +
                             "Kode: " + selectedCode + "\n" +
-                            "Nama: " + name + "\n" +
-                            "Harga: " + price + "\n" +
+                            "Nama: " + merch.name + "\n" +
+                            "Harga: " + merch.price + "\n" +
                             "Stok: " + stock, "Informasi", JOptionPane.INFORMATION_MESSAGE);
-
-                    // Kembali ke menu staff setelah selesai
-                    CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-                    cardLayout.show(cardPanel, "Staff Menu");
                     return;
                 }
             }
 
-            // Jika kode tidak ditemukan
             JOptionPane.showMessageDialog(null, "Kode merchandise tidak ditemukan!", "Error",
                     JOptionPane.ERROR_MESSAGE);
         });
 
         // Tombol Batalkan
         JButton cancelButton = new JButton("Batalkan");
-        cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         cancelButton.setBackground(Color.RED);
         cancelButton.setOpaque(true);
+        cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
         cancelButton.addActionListener(e -> {
             CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
             cardLayout.show(cardPanel, "Staff Menu"); // Kembali ke menu staff
         });
 
-        // Menambahkan semua komponen ke panel
-        editStockPanel.add(Box.createVerticalGlue());
-        editStockPanel.add(editLabel);
-        editStockPanel.add(Box.createVerticalStrut(20));
-        editStockPanel.add(codeComboBox);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(nameField);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(priceField);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(stockField);
-        editStockPanel.add(Box.createVerticalStrut(20));
-        editStockPanel.add(saveButton);
-        editStockPanel.add(Box.createVerticalStrut(10));
-        editStockPanel.add(cancelButton);
-        editStockPanel.add(Box.createVerticalGlue());
+        // Panel tombol
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.X_AXIS));
+        buttonPanel.add(saveButton);
+        buttonPanel.add(Box.createHorizontalStrut(10)); // Spasi antar tombol
+        buttonPanel.add(cancelButton);
+        editStockPanel.add(buttonPanel);
 
         return editStockPanel;
+    }
+
+    // Fungsi untuk membuat panel berisi label dan field di satu baris
+    private JPanel createLabeledFieldPanel(String labelText, JComponent field) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS)); // Horizontal layout
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new Dimension(100, 20)); // Lebar tetap untuk label
+        panel.add(label);
+        panel.add(field);
+        return panel;
     }
 
     private JPanel createBuyerSessionPanel() {
@@ -692,8 +694,8 @@ public class Ourversetest implements ActionListener {
         merchDropdown = new JComboBox<>();
         merchqtyField = new JTextField();
         paymentMethodField = new JTextField();
-        priceLabel = new JLabel("Harga: Rp 0");
-        totalLabel = new JLabel("Total Harga: Rp 0");
+        priceLabel = new JLabel("Rp 0");
+        totalLabel = new JLabel("Rp 0");
 
         // Pastikan merchandiseList sudah terdefinisi dan berisi data
         if (merchandiseList.isEmpty()) {
@@ -774,8 +776,8 @@ public class Ourversetest implements ActionListener {
                         }
                     }
                 } catch (NumberFormatException ex) {
-                    priceLabel.setText("Harga: Rp 0");
-                    totalLabel.setText("Total Harga: Rp 0");
+                    priceLabel.setText("Rp 0");
+                    totalLabel.setText("Rp 0");
                 }
             }
         });
