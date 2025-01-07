@@ -743,8 +743,8 @@ public class Ourversetest implements ActionListener {
         merchDropdown = new JComboBox<>();
         merchqtyField = new JTextField();
         paymentMethodField = new JTextField();
-        priceLabel = new JLabel("Harga: Rp 0");
-        totalLabel = new JLabel("Total Harga: Rp 0");
+        priceLabel = new JLabel("Rp 0");
+        totalLabel = new JLabel("Rp 0");
 
         // Pastikan merchandiseList sudah terdefinisi dan berisi data
         if (merchandiseList.isEmpty()) {
@@ -753,7 +753,6 @@ public class Ourversetest implements ActionListener {
         }
 
         // supaya pas ngisi quantity cuma bisa terima angka
-        // Hanya menerima input angka
         merchqtyField.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -778,12 +777,12 @@ public class Ourversetest implements ActionListener {
                         if (!qtyText.isEmpty()) {
                             int qty = Integer.parseInt(qtyText);
                             double total = price * qty;
-                            totalLabel.setText("Total Harga: Rp " + formatPrice(total));
+                            totalLabel.setText("Rp " + formatPrice(total));
                         } else {
-                            totalLabel.setText("Total Harga: Rp 0");
+                            totalLabel.setText("Rp 0");
                         }
                     } catch (NumberFormatException ex) {
-                        totalLabel.setText("Total Harga: Rp 0");
+                        totalLabel.setText("Rp 0");
                     }
                 }
             }
@@ -803,7 +802,7 @@ public class Ourversetest implements ActionListener {
             if (selectedMerch != null) {
                 // Parse dan format harga
                 double price = parsePrice(selectedMerch.price);
-                priceLabel.setText("Harga: Rp " + formatPrice(price));
+                priceLabel.setText("Rp " + formatPrice(price));
                 
                 // Update total jika quantity sudah diisi
                 String qtyText = merchqtyField.getText();
@@ -811,9 +810,9 @@ public class Ourversetest implements ActionListener {
                     try {
                         int qty = Integer.parseInt(qtyText);
                         double total = price * qty;
-                        totalLabel.setText("Total Harga: Rp " + formatPrice(total));
+                        totalLabel.setText("Rp " + formatPrice(total));
                     } catch (NumberFormatException ex) {
-                        totalLabel.setText("Total Harga: Rp 0");
+                        totalLabel.setText("Rp 0");
                     }
                 }
             }
