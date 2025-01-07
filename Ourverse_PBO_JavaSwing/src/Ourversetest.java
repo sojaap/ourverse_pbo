@@ -22,8 +22,8 @@ public class Ourversetest implements ActionListener {
     private JTextField addressField;
     private JComboBox<Merchandise> merchDropdown;
     private JTextField merchqtyField;
-    private JLabel priceLabel;  
-    private JLabel totalLabel;  
+    private JLabel priceLabel;
+    private JLabel totalLabel;
     private JTextField paymentMethodField;
     private JTextField usernameField;
     private JPasswordField passwordField;
@@ -35,21 +35,20 @@ public class Ourversetest implements ActionListener {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Ourversetest app = new Ourversetest();
-                app.merchandiseList.add(new Merchandise("1", "Seventeen Necklace", "150,000", "100"));
-                app.merchandiseList.add(new Merchandise("2", "Seventeen Shoulder Strap", "100,000", "100"));
-                app.merchandiseList.add(new Merchandise("3", "Seventeen Photo Card", "50,000", "100"));
-                app.merchandiseList.add(new Merchandise("4", "Seventeen Film Keyring", "140,000", "100"));
-                app.merchandiseList.add(new Merchandise("5", "Seventeen Acrylic Stand", "150,000", "100"));
-                app.merchandiseList.add(new Merchandise("6", "Seventeen Mini Picket Keyring", "200,000", "100"));
-                app.merchandiseList.add(new Merchandise("7", "BONGBONGEE Water Ball Keyring", "225,000", "100"));
-                app.merchandiseList.add(new Merchandise("8", "OFFICIAL LIGHT STICK VER.3", "550,000", "100"));
-                app.merchandiseList.add(new Merchandise("9", "Seventeen Long Glass Cup", "150,000", "100"));
-                app.merchandiseList.add(new Merchandise("10", "SEVENTEEN 2025 SEASON'S GREETING", "225,000", "100"));
+            app.merchandiseList.add(new Merchandise("1", "Seventeen Necklace", "150,000", "100"));
+            app.merchandiseList.add(new Merchandise("2", "Seventeen Shoulder Strap", "100,000", "100"));
+            app.merchandiseList.add(new Merchandise("3", "Seventeen Photo Card", "50,000", "100"));
+            app.merchandiseList.add(new Merchandise("4", "Seventeen Film Keyring", "140,000", "100"));
+            app.merchandiseList.add(new Merchandise("5", "Seventeen Acrylic Stand", "150,000", "100"));
+            app.merchandiseList.add(new Merchandise("6", "Seventeen Mini Picket Keyring", "200,000", "100"));
+            app.merchandiseList.add(new Merchandise("7", "BONGBONGEE Water Ball Keyring", "225,000", "100"));
+            app.merchandiseList.add(new Merchandise("8", "OFFICIAL LIGHT STICK VER.3", "550,000", "100"));
+            app.merchandiseList.add(new Merchandise("9", "Seventeen Long Glass Cup", "150,000", "100"));
+            app.merchandiseList.add(new Merchandise("10", "SEVENTEEN 2025 SEASON'S GREETING", "225,000", "100"));
 
             app.createAndShowGUI();
         });
     }
-
 
     private void createAndShowGUI() {
         ImageIcon originalImage = new ImageIcon("OurLogo.png");
@@ -137,8 +136,7 @@ public class Ourversetest implements ActionListener {
             this.stock = stock;
         }
 
-
-        //menambahkan supaya merchandis gak error
+        // menambahkan supaya merchandis gak error
         @Override
         public String toString() {
             return name + " - Rp " + price;
@@ -346,29 +344,29 @@ public class Ourversetest implements ActionListener {
         JScrollPane scrollPane = new JScrollPane(merchTable);
         scrollPane.setAlignmentX(JScrollPane.CENTER_ALIGNMENT);
 
-            // Button text dan target berdasarkan source
-    String buttonText = source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli";
-    String targetCard = source.equals("staff") ? "Staff Menu" : "Buyer Session";
+        // Button text dan target berdasarkan source
+        String buttonText = source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli";
+        String targetCard = source.equals("staff") ? "Staff Menu" : "Buyer Session";
 
-    JButton backButton = new JButton(buttonText);
-    backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    backButton.setBackground(Color.GRAY);
-    backButton.setForeground(Color.WHITE);
-    backButton.addActionListener(e -> {
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, targetCard);
-    });
+        JButton backButton = new JButton(buttonText);
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.setBackground(Color.GRAY);
+        backButton.setForeground(Color.WHITE);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, targetCard);
+        });
 
-    merchListPanel.add(Box.createVerticalGlue());
-    merchListPanel.add(merchListLabel);
-    merchListPanel.add(Box.createVerticalStrut(20));
-    merchListPanel.add(scrollPane);
-    merchListPanel.add(Box.createVerticalStrut(20));
-    merchListPanel.add(backButton);
-    merchListPanel.add(Box.createVerticalGlue());
+        merchListPanel.add(Box.createVerticalGlue());
+        merchListPanel.add(merchListLabel);
+        merchListPanel.add(Box.createVerticalStrut(20));
+        merchListPanel.add(scrollPane);
+        merchListPanel.add(Box.createVerticalStrut(20));
+        merchListPanel.add(backButton);
+        merchListPanel.add(Box.createVerticalGlue());
 
-    return merchListPanel;
-}
+        return merchListPanel;
+    }
 
     // Kelas untuk tombol di tabel
     class ButtonRenderer extends JButton implements TableCellRenderer {
@@ -699,8 +697,8 @@ public class Ourversetest implements ActionListener {
 
         // Pastikan merchandiseList sudah terdefinisi dan berisi data
         if (merchandiseList.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Daftar merchandise kosong", "Error", 
-                JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Daftar merchandise kosong", "Error",
+                    JOptionPane.ERROR_MESSAGE);
         }
 
         // supaya pas ngisi quantity cuma bisa terima angka
@@ -719,9 +717,11 @@ public class Ourversetest implements ActionListener {
             public void changedUpdate(javax.swing.event.DocumentEvent e) {
                 updateTotal();
             }
+
             public void removeUpdate(javax.swing.event.DocumentEvent e) {
                 updateTotal();
             }
+
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
                 updateTotal();
             }
@@ -761,7 +761,7 @@ public class Ourversetest implements ActionListener {
                 try {
                     double price = Double.parseDouble(selectedMerch.price.replace(",", ""));
                     priceLabel.setText("Harga: Rp " + String.format("%,.0f", price));
-                    
+
                     // Update total jika quantity sudah diisi
                     String qtyText = merchqtyField.getText();
                     if (!qtyText.isEmpty()) {
@@ -789,73 +789,73 @@ public class Ourversetest implements ActionListener {
         addLabeledField(orderFormPanel, "Total Harga:", totalLabel);
         addLabeledField(orderFormPanel, "Metode Pembayaran:", paymentMethodField);
 
-    // Submit button
-    JButton submitButton = new JButton("Submit");
-    submitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    submitButton.setBackground(Color.GREEN);
-    submitButton.addActionListener(e -> {
-        String name = nameField.getText();
-        String address = addressField.getText();
-        Merchandise selectedMerch = (Merchandise) merchDropdown.getSelectedItem();
-        String paymentMethod = paymentMethodField.getText();
+        // Submit button
+        JButton submitButton = new JButton("Submit");
+        submitButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        submitButton.setBackground(Color.GREEN);
+        submitButton.addActionListener(e -> {
+            String name = nameField.getText();
+            String address = addressField.getText();
+            Merchandise selectedMerch = (Merchandise) merchDropdown.getSelectedItem();
+            String paymentMethod = paymentMethodField.getText();
 
-        if (name.trim().isEmpty() || address.trim().isEmpty() || paymentMethod.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Error", 
-                JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (selectedMerch != null) {
-            try {
-                int quantity = Integer.parseInt(merchqtyField.getText());
-                double price = Double.parseDouble(selectedMerch.price);
-                double totalPrice = price * quantity;
-                
-                int currentStock = Integer.parseInt(selectedMerch.stock);
-                if (quantity <= currentStock) {
-                    // Update stock
-                    selectedMerch.stock = String.valueOf(currentStock - quantity);
-                    
-                    // Add to order history
-                    orderHistoryTextArea.append("Pesanan Baru:\n" +
-                        "Nama: " + name + "\n" +
-                        "Alamat: " + address + "\n" +
-                        "Merch: " + selectedMerch.name + "\n" +
-                        "Harga: " + currencyFormatter.format(price) + "\n" +
-                        "Quantity: " + quantity + "\n" +
-                        "Total Harga: " + currencyFormatter.format(totalPrice) + "\n" +
-                        "Pembayaran: " + paymentMethod + "\n\n");
-
-                    // Show success message
-                    JOptionPane.showMessageDialog(null,
-                        "Pesanan Berhasil:\n" +
-                        "Nama: " + name + "\n" +
-                        "Alamat: " + address + "\n" +
-                        "Merch: " + selectedMerch.name + "\n" +
-                        "Quantity: " + quantity + "\n" +
-                        "Total Harga: " + currencyFormatter.format(totalPrice),
-                        "Konfirmasi Pesanan",
-                        JOptionPane.INFORMATION_MESSAGE);
-
-                    // Reset form
-                    nameField.setText("");
-                    addressField.setText("");
-                    merchqtyField.setText("");
-                    paymentMethodField.setText("");
-                    
-                    // Return to buyer menu
-                    CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-                    cardLayout.show(cardPanel, "Buyer Session");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Stok tidak mencukupi!", "Error",
+            if (name.trim().isEmpty() || address.trim().isEmpty() || paymentMethod.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Semua field harus diisi!", "Error",
                         JOptionPane.ERROR_MESSAGE);
-                }
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Quantity harus berupa angka!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        }
-    });
+
+            if (selectedMerch != null) {
+                try {
+                    int quantity = Integer.parseInt(merchqtyField.getText());
+                    double price = Double.parseDouble(selectedMerch.price);
+                    double totalPrice = price * quantity;
+
+                    int currentStock = Integer.parseInt(selectedMerch.stock);
+                    if (quantity <= currentStock) {
+                        // Update stock
+                        selectedMerch.stock = String.valueOf(currentStock - quantity);
+
+                        // Add to order history
+                        orderHistoryTextArea.append("Pesanan Baru:\n" +
+                                "Nama: " + name + "\n" +
+                                "Alamat: " + address + "\n" +
+                                "Merch: " + selectedMerch.name + "\n" +
+                                "Harga: " + currencyFormatter.format(price) + "\n" +
+                                "Quantity: " + quantity + "\n" +
+                                "Total Harga: " + currencyFormatter.format(totalPrice) + "\n" +
+                                "Pembayaran: " + paymentMethod + "\n\n");
+
+                        // Show success message
+                        JOptionPane.showMessageDialog(null,
+                                "Pesanan Berhasil:\n" +
+                                        "Nama: " + name + "\n" +
+                                        "Alamat: " + address + "\n" +
+                                        "Merch: " + selectedMerch.name + "\n" +
+                                        "Quantity: " + quantity + "\n" +
+                                        "Total Harga: " + currencyFormatter.format(totalPrice),
+                                "Konfirmasi Pesanan",
+                                JOptionPane.INFORMATION_MESSAGE);
+
+                        // Reset form
+                        nameField.setText("");
+                        addressField.setText("");
+                        merchqtyField.setText("");
+                        paymentMethodField.setText("");
+
+                        // Return to buyer menu
+                        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+                        cardLayout.show(cardPanel, "Buyer Session");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Stok tidak mencukupi!", "Error",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Quantity harus berupa angka!", "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
 
         // Tombol Kembali
         JButton backButton = new JButton("Kembali ke Menu Pembeli");
@@ -900,19 +900,18 @@ public class Ourversetest implements ActionListener {
             JOptionPane.showMessageDialog(null, "Merchandise tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
         });
 
-
-    // Cancel button
-    JButton cancelButton = new JButton("Batalkan Pesanan");
-    cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    cancelButton.setBackground(Color.RED);
-    cancelButton.addActionListener(e -> {
-        nameField.setText("");
-        addressField.setText("");
-        merchqtyField.setText("");
-        paymentMethodField.setText("");
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, "Buyer Session");
-    });
+        // Cancel button
+        JButton cancelButton = new JButton("Batalkan Pesanan");
+        cancelButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        cancelButton.setBackground(Color.RED);
+        cancelButton.addActionListener(e -> {
+            nameField.setText("");
+            addressField.setText("");
+            merchqtyField.setText("");
+            paymentMethodField.setText("");
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, "Buyer Session");
+        });
 
         orderFormPanel.add(Box.createVerticalStrut(20));
         orderFormPanel.add(submitButton);
@@ -946,30 +945,32 @@ public class Ourversetest implements ActionListener {
             if (input != null) {
                 for (Merchandise merch : merchandiseList) {
                     if (merch.code.equals(input) && merch.buyerName != null) {
-                // Kembalikan stok dan hapus data pesanan
-                int restoredStock = Integer.parseInt(merch.stock) + merch.quantity;
-                merch.stock = String.valueOf(restoredStock);
-                merch.buyerName = null;
-                merch.address = null;
-                merch.quantity = 0;
-                merch.paymentMethod = null;
+                        // Kembalikan stok dan hapus data pesanan
+                        int restoredStock = Integer.parseInt(merch.stock) + merch.quantity;
+                        merch.stock = String.valueOf(restoredStock);
+                        merch.buyerName = null;
+                        merch.address = null;
+                        merch.quantity = 0;
+                        merch.paymentMethod = null;
 
-                JOptionPane.showMessageDialog(null, "Pesanan berhasil dihapus!", "Informasi", JOptionPane.INFORMATION_MESSAGE);
-                updateOrderHistoryTextArea();
-                return;
+                        JOptionPane.showMessageDialog(null, "Pesanan berhasil dihapus!", "Informasi",
+                                JOptionPane.INFORMATION_MESSAGE);
+                        updateOrderHistoryTextArea();
+                        return;
+                    }
+                }
+                JOptionPane.showMessageDialog(null, "Pesanan tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        }
-        JOptionPane.showMessageDialog(null, "Pesanan tidak ditemukan!", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-});
+        });
 
-    // Buat tombol kembali berdasarkan source
-    JButton backButton = new JButton(source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli");
-    backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
-    backButton.addActionListener(e -> {
-        CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
-        cardLayout.show(cardPanel, source.equals("staff") ? "Staff Menu" : "Buyer Session");
-    });
+        // Buat tombol kembali berdasarkan source
+        JButton backButton = new JButton(
+                source.equals("staff") ? "Kembali ke Menu Pegawai" : "Kembali ke Menu Pembeli");
+        backButton.setAlignmentX(JButton.CENTER_ALIGNMENT);
+        backButton.addActionListener(e -> {
+            CardLayout cardLayout = (CardLayout) cardPanel.getLayout();
+            cardLayout.show(cardPanel, source.equals("staff") ? "Staff Menu" : "Buyer Session");
+        });
 
         orderHistoryPanel.add(Box.createVerticalGlue());
         orderHistoryPanel.add(orderHistoryLabel);
@@ -985,38 +986,38 @@ public class Ourversetest implements ActionListener {
     }
 
     // Versi untuk JTextField
-private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
-    JPanel fieldPanel = new JPanel();
-    fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
-    
-    JLabel label = new JLabel(labelText);
-    label.setPreferredSize(new java.awt.Dimension(120, 20));
-    
-    textField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
-    
-    fieldPanel.add(label);
-    fieldPanel.add(Box.createHorizontalStrut(10));
-    fieldPanel.add(textField);
-    
-    panel.add(fieldPanel);
-    panel.add(Box.createVerticalStrut(10));
-}
+    private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
 
-// Versi untuk Component lainnya (JComboBox, JLabel, dll)
-private void addLabeledField(JPanel panel, String labelText, Component component) {
-    JPanel fieldPanel = new JPanel();
-    fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
-    
-    JLabel label = new JLabel(labelText);
-    label.setPreferredSize(new java.awt.Dimension(120, 20));
-    
-    fieldPanel.add(label);
-    fieldPanel.add(Box.createHorizontalStrut(10));
-    fieldPanel.add(component);
-    
-    panel.add(fieldPanel);
-    panel.add(Box.createVerticalStrut(10));
-}
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new java.awt.Dimension(120, 20));
+
+        textField.setMaximumSize(new java.awt.Dimension(Integer.MAX_VALUE, 30));
+
+        fieldPanel.add(label);
+        fieldPanel.add(Box.createHorizontalStrut(10));
+        fieldPanel.add(textField);
+
+        panel.add(fieldPanel);
+        panel.add(Box.createVerticalStrut(10));
+    }
+
+    // Versi untuk Component lainnya (JComboBox, JLabel, dll)
+    private void addLabeledField(JPanel panel, String labelText, Component component) {
+        JPanel fieldPanel = new JPanel();
+        fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.X_AXIS));
+
+        JLabel label = new JLabel(labelText);
+        label.setPreferredSize(new java.awt.Dimension(120, 20));
+
+        fieldPanel.add(label);
+        fieldPanel.add(Box.createHorizontalStrut(10));
+        fieldPanel.add(component);
+
+        panel.add(fieldPanel);
+        panel.add(Box.createVerticalStrut(10));
+    }
 
     // untuk set character limit untuk username (masing-masing 20)
     public static void setCharacterLimit(JTextField textField, int limit) {
