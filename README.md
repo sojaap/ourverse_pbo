@@ -15,7 +15,7 @@ Di bawah ini akan dipaparkan secara rinci tentang tampilan _window_ dari seluruh
 
 **1. _Frame_ Masuk**
    _Frame_ utama akan tampak seperti berikut. Terdapat dua tombol navigasi yang berbeda karena kedua aktor akan masuk ke dalam _frame_ tersendiri. Terkhusus admin, diparlukan _login_ terlebih dahulu dengan kata sandi yang sudah ditentukan oleh sistem.
-   ![tampilan login](Ourverse_Menu/ourverse_login)
+   ![tampilan login](Ourverse_Menu/ourverse_login.png)
 
 2. Tampilan Menu utama
    Tampilan menu utama pada kedua aktor akan berbeda. Aktor admin dapat menambahlan daftar _merchandise_, melakukan perubahan stok _merchandise_, melihat daftar _merchandise_ yang terpublikasi di laman pembeli, serta melihat daftar pesanan _merchandise_ yang harus segera diproses pengirimannya.
