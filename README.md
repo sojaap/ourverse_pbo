@@ -4,19 +4,19 @@
 ![Logo](OurLogo.png)
 
 
-**Pendahuluan :**
+**1. Pendahuluan :**
 Ourverse ialah sebuah aplikasi _e-commerce_ yang dirancang khusus untuk mencari _merchandise_ grup Korean Pop bernama Seventeen. Di dalam Ourverse, pengguna dapat melakukan pembelian _merchandise_ secara _daring_ melalui satu pusat administrasi. Ourverse menjadi aplikasi berbasis resmi yang siap memenuhi permintaan para kolektor serta dapat merangkul beberapa admin _merchandise_ untuk bekerja sama memperluas pemasaran.
 
-**Aktor-Aktor yang Terlibat :**
+**2. Aktor-Aktor yang Terlibat :**
 Ourverse melibatkan dua aktor utama dalam aplikasi, yaitu pegawai serta pembeli. Pegawai mempunyai akses yang setara dengan admin dan programmer, di mana pegawai dapat mengelola laman pegawai dan pembeli. Selain itu, pegawai juga mempunyai hak untuk mengatur penambahan maupun pengurangan _merchandise_. Aktor pembeli hanya dapat mengakses laman pembeli, yang bisa melihat daftar _merchandise_ serta dapat mengisi formulir pembelian.  
 
-**Framework GUI : **
+**3. Framework GUI : **
 Java Swing, dijalankan melalui Visual Studio Code
 
-**Tampilan _Frame_ :**
+**4. Tampilan _Frame_ :**
 Di bawah ini akan dipaparkan secara rinci tentang tampilan _window_ dari seluruh halaman. 
 
-**1. _Frame_ Masuk**
+**a. _Frame_ Masuk**
 _Frame_ utama akan tampak seperti berikut. Terdapat dua tombol navigasi yang berbeda karena kedua aktor akan masuk ke dalam _frame_ tersendiri.
    
    ![tampilan](Ourverse_Menu/ourverse_login.png)
@@ -26,7 +26,7 @@ Terkhusus pegawai, ia memerlukan _login_ terlebih dahulu dengan kata sandi yang 
    ![tampilan](Ourverse_Menu/ourverse_masuk_pegawai.png)
 
 
-2. Tampilan Menu utama
+**b. Tampilan Menu utama**
 Tampilan menu utama pada kedua aktor akan berbeda. Aktor pegawai dapat menambahkan daftar _merchandise_, melakukan perubahan stok _merchandise_, melihat daftar _merchandise_ yang terpublikasi di laman pembeli, serta melihat daftar pesanan _merchandise_ pembeli yang harus segera diproses pengirimannya.
 
    ![tampilan](Ourverse_Menu/ourverse_menu_pegawai.png)
@@ -36,7 +36,7 @@ Tampilan menu utama aktor pembeli terdapat tiga tombol, yaitu melihat daftar _me
    ![tampilan](Ourverse_Menu/ourverse_menu_pembeli.png)
 
 
-4. _Frame_ Pegawai/Admin
+**c. _Frame_ Pegawai/Admin**
 _Frame_ pegawai akan tampak seperti tangkapan layar di bawah ini. Pegawai dapat melakukan penambahan _merchandise_ pada daftar yang sudah ada. Pegawai dapat mengatur kode _merch_, nama, harga, dan stok _merch_ dan kemudian disimpan di dalam sistem. _Merchandise_ yang ditambahkan akan otomatis tercatat di daftar _merch_.
 
    ![tampilan](Ourverse_Menu/pegawai_nambah_merchandise.png)
@@ -55,7 +55,7 @@ Pegawai juga mempunyai kebebasan untuk melihat riwayat pemesanan yanng dilakukan
 ![tampilan](Ourverse_Menu/pegawai_setelah_hapus.png)
 
 
-4. _Frame_ Pembeli
+**d. _Frame_ Pembeli**
 _Frame_ pembeli akan tampak seperti tangkapan layar di bawah ini. Pembeli dapat melihat daftar _merchandise_, memesan _merchandise_, dan melihat daftar pemesanan yang sudah diisi oleh pembeli. Pada fitur melihat daftar _merch_, pembeli dapat meninjau daftar _merchandise_ yang akan dibeli nanti.
 
 ![tampilan](Ourverse_Menu/pembeli_daftar.png)
