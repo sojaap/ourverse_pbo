@@ -66,3 +66,5 @@ Lalu pada fitur pemesanan _merchandise_, pembeli bisa mengisi formulir pemesanan
 ![tampilan](Ourverse_Menu/pembeli_setelah_pesan.png)
 
 Pada riwayat pemesanan, pembeli dapat meninjau kembali riwayat pembeliannya dan mempunyai hak untuk menghapus pesanan. caranya serupa dengan yang pihak pegawai lakukan, di mana pembeli perlu memasukkan kode _merchandise_ dan kemudian menghapus pesanan tersenbut secara permanen.
+
+![tampilan](Ourverse_Menu/pembeli_riwayat.png)
