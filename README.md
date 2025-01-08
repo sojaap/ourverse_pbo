@@ -36,8 +36,8 @@ Tampilan menu utama aktor pembeli terdapat tiga tombol, yaitu melihat daftar _me
    ![tampilan](Ourverse_Menu/ourverse_menu_pembeli.png)
 
 
-4. Menu-Menu Pegawai/Admin
-Menu pegawai akan tampak seperti tangkapan layar di bawah ini. Pegawai dapat melakukan penambahan _merchandise_ pada daftar yang sudah ada. Pegawai dapat mengatur kode _merch_, nama, harga, dan stok _merch_ dan kemudian disimpan di dalam sistem. _Merchandise_ yang ditambahkan akan otomatis tercatat di daftar _merch_.
+4. _Frame_ Pegawai/Admin
+_Frame_ pegawai akan tampak seperti tangkapan layar di bawah ini. Pegawai dapat melakukan penambahan _merchandise_ pada daftar yang sudah ada. Pegawai dapat mengatur kode _merch_, nama, harga, dan stok _merch_ dan kemudian disimpan di dalam sistem. _Merchandise_ yang ditambahkan akan otomatis tercatat di daftar _merch_.
 
    ![tampilan](Ourverse_Menu/pegawai_nambah_merchandise.png)
 
@@ -55,8 +55,8 @@ Pegawai juga mempunyai kebebasan untuk melihat riwayat pemesanan yanng dilakukan
 ![tampilan](Ourverse_Menu/pegawai_setelah_hapus.png)
 
 
-4. Menu-Menu Pembeli
-Menu pembeli akan tampak seperti tangkapan layar di bawah ini. Pembeli dapat melihat daftar _merchandise_, memesan _merchandise_, dan melihat daftar pemesanan yang sudah diisi oleh pembeli. Pada fitur melihat daftar _merch_, pembeli dapat meninjau daftar _merchandise_ yang akan dibeli nanti.
+4. _Frame_ Pembeli
+_Frame_ pembeli akan tampak seperti tangkapan layar di bawah ini. Pembeli dapat melihat daftar _merchandise_, memesan _merchandise_, dan melihat daftar pemesanan yang sudah diisi oleh pembeli. Pada fitur melihat daftar _merch_, pembeli dapat meninjau daftar _merchandise_ yang akan dibeli nanti.
 
 ![tampilan](Ourverse_Menu/pembeli_daftar.png)
 
