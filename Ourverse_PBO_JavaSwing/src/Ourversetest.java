@@ -1,3 +1,7 @@
+/// Komen Bagian Ditaruh untuk bagian presentasi saja ///
+/// Ourverse Project ///
+
+// Bagian Irma 1
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,6 +39,7 @@ public class Ourversetest implements ActionListener {
     private JTextField priceField;
     private JTextField stockField;
 
+    // Bagian Selsa 1
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             Ourversetest app = new Ourversetest();
@@ -53,6 +58,7 @@ public class Ourversetest implements ActionListener {
         });
     }
 
+    // Bagian Sonia 1
     // bantu harga
     private double parsePrice(String priceStr) {
         try {
@@ -71,6 +77,7 @@ public class Ourversetest implements ActionListener {
         return formatter.format(price);
     }
 
+    // Bagian Soja 1
     private void createAndShowGUI() {
         ImageIcon originalImage = new ImageIcon("OurLogo.png");
         Image resizedImage = originalImage.getImage().getScaledInstance(150, 150, Image.SCALE_SMOOTH);
@@ -114,6 +121,7 @@ public class Ourversetest implements ActionListener {
         mainMenuPanel.add(buttonbuyer);
         mainMenuPanel.add(Box.createVerticalGlue());
 
+        // Navigation Panel
         cardPanel.add(mainMenuPanel, "Main Menu");
         cardPanel.add(createStaffSessionPanel(), "Staff Session");
         cardPanel.add(createBuyerSessionPanel(), "Buyer Session");
@@ -140,6 +148,7 @@ public class Ourversetest implements ActionListener {
         }
     }
 
+    // Bagian Sonia sama Selsa
     static class Merchandise {
         String code;
         String name;
@@ -159,6 +168,7 @@ public class Ourversetest implements ActionListener {
             this.isOrdered = false;
         }
 
+        // Punya Order
         // menambahkan supaya merchandis gak error
         @Override
         public String toString() {
@@ -175,6 +185,7 @@ public class Ourversetest implements ActionListener {
         }
     }
 
+    // Bagian Soja 2
     private JPanel createStaffSessionPanel() {
         JPanel staffPanel = new JPanel();
         staffPanel.setLayout(new BoxLayout(staffPanel, BoxLayout.Y_AXIS));
@@ -253,7 +264,6 @@ public class Ourversetest implements ActionListener {
     }
 
     // Staff Menu Session
-
     private JPanel createStaffMenuSessionPanel() {
         JPanel StaffPanelM = new JPanel();
         StaffPanelM.setName("Staff Menu");
@@ -324,12 +334,13 @@ public class Ourversetest implements ActionListener {
         return StaffPanelM;
     }
 
+    // Bagian Irma 2
     private JPanel createMerchListPanel(String source) {
         JPanel merchListPanel = new JPanel();
         merchListPanel.setLayout(new BoxLayout(merchListPanel, BoxLayout.Y_AXIS));
         merchListPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
-        JLabel merchListLabel = new JLabel("Daftar List Merchandise");
+        JLabel merchListLabel = new JLabel("Daftar Merchandise");
         merchListLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         merchListLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
 
@@ -453,6 +464,7 @@ public class Ourversetest implements ActionListener {
         }
     }
 
+    // Bagian Irma 3
     // Menu Menambahkan Daftar Merch
     private JPanel createAddMerchPanel() {
         JPanel addMerchPanel = new JPanel();
@@ -558,6 +570,7 @@ public class Ourversetest implements ActionListener {
         return addMerchPanel;
     }
 
+    // Bagian Soja 3
     // Menu Menambahkan stock Merch
     private JPanel createEditStockPanel() {
         JPanel editStockPanel = new JPanel();
@@ -634,13 +647,14 @@ public class Ourversetest implements ActionListener {
                             "Kode: " + selectedCode + "\n" +
                             "Nama: " + merch.name + "\n" +
                             "Harga: " + merch.price + "\n" +
-                            "Stok: " + stock, "Informasi", JOptionPane.INFORMATION_MESSAGE);
+                            "Stok: " + stock, "Informasi", JOptionPane.INFORMATION_MESSAGE); // Pop Up Notification
                     return;
                 }
             }
 
-            JOptionPane.showMessageDialog(null, "Kode merchandise tidak ditemukan!", "Error",
-                    JOptionPane.ERROR_MESSAGE);
+            // JOptionPane.showMessageDialog(null, "Kode merchandise tidak ditemukan!",
+            // "Error",
+            // JOptionPane.ERROR_MESSAGE);
         });
 
         // Tombol Batalkan
@@ -664,6 +678,7 @@ public class Ourversetest implements ActionListener {
         return editStockPanel;
     }
 
+    // Untuk layout
     // Fungsi untuk membuat panel berisi label dan field di satu baris
     private JPanel createLabeledFieldPanel(String labelText, JComponent field) {
         JPanel panel = new JPanel();
@@ -675,6 +690,8 @@ public class Ourversetest implements ActionListener {
         return panel;
     }
 
+    // Bagian Kezia 1
+    // Menu Utama Pembeli
     private JPanel createBuyerSessionPanel() {
         JPanel buyerPanel = new JPanel();
         buyerPanel.setLayout(new BoxLayout(buyerPanel, BoxLayout.Y_AXIS));
@@ -731,11 +748,13 @@ public class Ourversetest implements ActionListener {
         return buyerPanel;
     }
 
+    // Bagian Sonia sama Selsa
     public JPanel createOrderFormPanel() {
         JPanel orderFormPanel = new JPanel();
         orderFormPanel.setLayout(new BoxLayout(orderFormPanel, BoxLayout.Y_AXIS));
         orderFormPanel.setBorder(new EmptyBorder(20, 30, 20, 30));
 
+        // Title labelnya
         JLabel formLabel = new JLabel("Form Pemesanan Merch");
         formLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
         formLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
@@ -984,6 +1003,7 @@ public class Ourversetest implements ActionListener {
         return orderFormPanel;
     }
 
+    // Bagian Kezia 2
     // Menu Riwayat Pemesanan
     public JPanel createOrderHistoryPanel(String source) {
         JPanel orderHistoryPanel = new JPanel();
@@ -1050,6 +1070,7 @@ public class Ourversetest implements ActionListener {
         return orderHistoryPanel;
     }
 
+    //
     // Versi untuk JTextField
     private void addLabeledField(JPanel panel, String labelText, JTextField textField) {
         JPanel fieldPanel = new JPanel();
@@ -1084,6 +1105,7 @@ public class Ourversetest implements ActionListener {
         panel.add(Box.createVerticalStrut(10));
     }
 
+    // Bagian Soja 4
     // untuk set character limit untuk username (masing-masing 20)
     public static void setCharacterLimit(JTextField textField, int limit) {
         textField.addKeyListener(new KeyAdapter() {
@@ -1110,6 +1132,7 @@ public class Ourversetest implements ActionListener {
         });
     }
 
+    // Bagian Kezia 3
     private void updateOrderHistoryTextArea() {
         StringBuilder history = new StringBuilder();
         int orderNumber = 1;
@@ -1142,6 +1165,7 @@ public class Ourversetest implements ActionListener {
         orderHistoryTextArea.setText(history.toString());
     }
 
+    // Bagian Sonia 3
     // Method untuk memperbarui dropdown merchandise di form pemesanan
     private void refreshOrderFormDropdown(JComboBox<Merchandise> dropdown) {
         dropdown.removeAllItems(); // Menghapus semua item yang ada
@@ -1150,3 +1174,5 @@ public class Ourversetest implements ActionListener {
         }
     }
 }
+
+// Selesai
